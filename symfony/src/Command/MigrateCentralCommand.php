@@ -17,7 +17,7 @@ use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 )]
 class MigrateCentralCommand extends Command
 {
-    private $dependencyFactory;
+    private DependencyFactory $dependencyFactory;
 
     public function __construct(DependencyFactory $dependencyFactory)
     {

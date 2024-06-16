@@ -20,8 +20,8 @@ use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 )]
 class MigrateTenantsCommand extends Command
 {
-    private $tenantRepository;
-    private $dependencyFactory;
+    private TenantRepository $tenantRepository;
+    private DependencyFactory $dependencyFactory;
 
     public function __construct(TenantRepository $tenantRepository, DependencyFactory $dependencyFactory)
     {
