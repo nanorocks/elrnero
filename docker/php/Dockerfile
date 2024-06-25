@@ -45,4 +45,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=www-data:www-data . /var/www
 
-WORKDIR /var/www/html/symfony
+WORKDIR /var/www/html/api
