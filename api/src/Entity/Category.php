@@ -40,6 +40,9 @@ class Category
     #[ORM\OneToMany(targetEntity: CategoryCourse::class, mappedBy: 'category_id')]
     private Collection $categoryCourses;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -87,12 +90,12 @@ class Category
         return $this;
     }
 
-    public function getParentId(): ?self
+    public function getParent(): ?self
     {
         return $this->parent;
     }
 
-    public function setParentId(?self $parent): static
+    public function setParent(?self $parent): static
     {
         $this->parent = $parent;
 
@@ -155,6 +158,18 @@ class Category
                 $categoryCourse->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

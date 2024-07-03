@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category
+{% endblock %}
+
+{% block body %}
+	<div class="card mt-4">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs"></ul>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">Edit Category</h5>
+			<p class="card-text">The item will take direct action over the representation to the WEB UI.</p>
+
+			<form method="post" enctype="multipart/form-data" class="w-50">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" value="{{ category.name }}">
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea id="description" name="description" class="form-control">{{ category.description }}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="avatar">Avatar</label>
+					<input type="file" id="avatar" name="avatar" class="form-control">
+					{% if category.avatar %}
+						<img src="{{ asset('uploads/avatars/' ~ category.avatar) }}" alt="{{ category.name }}" width="100" class="img-fluid my-2">
+					{% endif %}
+				</div>
+				<select id="parent_id" name="parent_id" class="form-control">
+					<option value="">Select Parent Category</option>
+					{% for cat in allCategories %}
+						<option value="{{ cat.id }}" {% if category.parent and category.parent.id == cat.id %} selected {% endif %}>{{ cat.name }}</option>
+					{% endfor %}
+				</select>
+				<button class="btn btn-primary mt-2">Save</button>
+			</form>
+
+			<div class="pt-2">
+
+				<a href="{{ path('category_index') }}" class="btn btn-primary">Back to list</a>
+				<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+					<button class="btn btn-danger">delete</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

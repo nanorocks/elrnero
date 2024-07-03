@@ -1,23 +1,212 @@
+{# templates/base.html.twig #}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+		<link rel="icon" href="{{ asset('favicon.ico') }}">
+		<style>
+			/* Custom styles for full-height sidebar */
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				z-index: 100; /* Adjust as needed */
+				overflow-y: auto; /* Enable scrolling if content exceeds height */
+			}
 
-		{% block javascripts %}
-			{% block importmap %}
-				{{ importmap('app') }}
-			{% endblock %}
-		{% endblock %}
+			.navbar {
+				z-index: 101; /* Ensure navbar is above sidebar */
+			}
 
-		<!-- in the <head> section -->
+			.main-content {
+				margin-left: 250px; /* Adjust sidebar width */
+				padding-top: 60px; /* Adjust to match navbar height */
+			}
+
+			@media(max-width: 768px) {
+				.main-content {
+					margin-left: 0;
+				}
+			}
+
+			* {
+				font-family: 'Inconsolata', serif;
+			}
+		</style>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inconsolata" rel="stylesheet">
 	</head>
 	<body>
-		{% block body %}{% endblock %}
-		<!-- before the closing <body> tag -->
-	</body>
-</html>
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-terminal">
+							<polyline points="4 17 10 11 4 5"></polyline>
+							<line x1="12" y1="19" x2="20" y2="19"></line>
+						</svg>
+						Elrnero Admin Panel</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav ms-auto">
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'profile_index' %}active{% endif %}" href="{{ path('profile_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+										<circle cx="12" cy="7" r="4"></circle>
+									</svg>Profile
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'settings_index' %}active{% endif %}" href="{{ path('settings_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+										<circle cx="12" cy="12" r="3"></circle>
+										<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+									</svg>
+									Settings
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+										<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+										<polyline points="16 17 21 12 16 7"></polyline>
+										<line x1="21" y1="12" x2="9" y2="12"></line>
+									</svg>
+									Logout
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block navbar-dark bg-dark sidebar">
+					<div class="position-sticky">
+						<ul class="navbar-nav flex-column pt-5 mt-3">
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'dashboard_index' %}active{% endif %}" href="{{ path('dashboard_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+										<polyline points="9 22 9 12 15 12 15 22"></polyline>
+									</svg>
+									Dashboard
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'category_index' %}active{% endif %}" href="{{ path('category_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
+										<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+									</svg>
+									Categories
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'user_index' %}active{% endif %}" href="{{ path('user_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+										<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+										<circle cx="9" cy="7" r="4"></circle>
+										<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+										<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+									</svg>
+									Users
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'coupon_index' %}active{% endif %}" href="{{ path('coupon_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-percent">
+										<line x1="19" y1="5" x2="5" y2="19"></line>
+										<circle cx="6.5" cy="6.5" r="2.5"></circle>
+										<circle cx="17.5" cy="17.5" r="2.5"></circle>
+									</svg>
+									Coupons
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'course_index' %}active{% endif %}" href="{{ path('course_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
+										<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+										<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+									</svg>
+									Courses
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'feedback_index' %}active{% endif %}" href="{{ path('feedback_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square">
+										<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+									</svg>
+									Feedbacks
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'playlist_index' %}active{% endif %}" href="{{ path('playlist_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+										<line x1="8" y1="6" x2="21" y2="6"></line>
+										<line x1="8" y1="12" x2="21" y2="12"></line>
+										<line x1="8" y1="18" x2="21" y2="18"></line>
+										<line x1="3" y1="6" x2="3.01" y2="6"></line>
+										<line x1="3" y1="12" x2="3.01" y2="12"></line>
+										<line x1="3" y1="18" x2="3.01" y2="18"></line>
+									</svg>
+									Playlists
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'order_index' %}active{% endif %}" href="{{ path('order_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+										<circle cx="9" cy="21" r="1"></circle>
+										<circle cx="20" cy="21" r="1"></circle>
+										<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+									</svg>
+									Orders
+								</a>
+							</li>
+							<hr/>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'order_index' %}active{% endif %}" href="{{ path('order_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-code">
+										<polyline points="16 18 22 12 16 6"></polyline>
+										<polyline points="8 6 2 12 8 18"></polyline>
+									</svg>
+									API doc
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'order_index' %}active{% endif %}" href="{{ path('order_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">
+										<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+										<path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+										<path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+									</svg>
+									Database
+								</a>
+							</li>
+						</ul>
+
+					</div>
+				</nav>
+
+				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content"> {% block body %}{% endblock %}
+					</main>
+				</div>
+			</div>
+
+			 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

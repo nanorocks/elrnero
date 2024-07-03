@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block body %}
+	<div class="card mt-4">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs"></ul>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">Category</h5>
+			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ category.id }}</td>
+					</tr>
+					<tr>
+						<th>Name</th>
+						<td>{{ category.name }}</td>
+					</tr>
+					<tr>
+						<th>Slug</th>
+						<td>{{ category.slug }}</td>
+					</tr>
+					<tr>
+						<th>Description</th>
+						<td>{{ category.description }}</td>
+					</tr>
+					<tr>
+						<th>Avatar</th>
+						<td>
+							{% if category.avatar %}
+								<img src="{{ asset('uploads/avatars/' ~ category.avatar) }}" alt="{{ category.name }}" width="100">
+							{% else %}
+								No avatar
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Parent</th>
+						<td>{{ category.parent ? category.parent.name : 'None' }}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="pt-2">
+				<a href="{{ path('category_index') }}" class="btn btn-primary">Back to list</a>
+				<a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-success">Edit</a>
+				<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+					<button class="btn btn-danger">delete</button>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+
+
+{% endblock %}

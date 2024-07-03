@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category
+{% endblock %}
+
+{% block body %}
+	<div class="card mt-4">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs"></ul>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">New Category</h5>
+			<p class="card-text">New item to this entity will be added. This will take direct action over the representation to the WEB UI.</p>
+
+			<form method="post" enctype="multipart/form-data" class="w-50">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="avatar">Avatar</label>
+					<br/>
+					<input type="file" id="avatar" name="avatar" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="parent_id">Parent Category</label>
+					<select id="parent_id" name="parent_id" class="form-control">
+						<option value="">Select Parent Category</option>
+						{% for cat in allCategories %}
+							<option value="{{ cat.id }}">{{ cat.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="pt-2">
+					<button type="submit" class="btn btn-primary">Create Category</button>
+					<a href="{{ path('category_index') }}" class="btn btn-primary">Back to list</a>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+{% endblock %}
