@@ -138,6 +138,10 @@ class User
 
     public function getAvatar(): ?string
     {
+        if ($this->avatar === null) {
+            return null;
+        }
+
         return 'users/' . $this->avatar;
     }
 

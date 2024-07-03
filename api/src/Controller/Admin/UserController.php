@@ -86,7 +86,7 @@ class UserController extends AbstractController
             $name = $request->request->get('name');
             $email = $request->request->get('email');
             $is_admin = $request->request->get('is_admin') ?? false;
-            $bio = $request->request->get('bio');
+            $bio = $request->request->get('short_bio');
             $avatarFile = $request->files->get('avatar');
             $job_title = $request->request->get('job_title');
             $soc_media = $request->request->get('soc_media');
