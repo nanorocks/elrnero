@@ -296,16 +296,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = RoleEnum::USER;
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $roles[] = RoleEnum::USER;
-        
-        $this->roles = array_unique($roles);
+        $roles[] = 'ROLE_USER';
+
+        $roles = array_unique($roles);
+
+        $this->roles = $roles;
 
         return $this;
     }
@@ -317,7 +319,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        
     }
 
     /**
