@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Enum\RoleEnum;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,12 +91,14 @@ class UserController extends AbstractController
             $avatarFile = $request->files->get('avatar');
             $job_title = $request->request->get('job_title');
             $soc_media = $request->request->get('soc_media');
+            $roles = $request->request->all('roles');
 
             $user->setName($name);
             $user->setEmail($email);
             $user->setBanned($is_banned);
             $user->setShortBio($bio);
             $user->setJobTitle($job_title);
+            $user->setRoles($roles);
 
             if ($soc_media) {
                 $user->setSocMedia(explode(',', trim($soc_media)));
@@ -127,6 +130,7 @@ class UserController extends AbstractController
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'allUsers' => $userRepository->findAll(),
+            'roles' => RoleEnum::getAllRoles()
         ]);
     }
 

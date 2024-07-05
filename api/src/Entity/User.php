@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\RoleEnum;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -44,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?array $soc_media = null;
 
     #[ORM\Column(type: 'json')]
-    private array $roles = ['ROLE_USER'];
+    private array $roles = [RoleEnum::USER];
 
     /**
      * @var Collection<int, Course>
@@ -295,14 +296,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = RoleEnum::USER;
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $roles[] = RoleEnum::USER;
+        
+        $this->roles = array_unique($roles);
 
         return $this;
     }
