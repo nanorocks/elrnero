@@ -67,11 +67,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'user_id', orphanRemoval: true)]
     private Collection $feedbacks;
 
+    /**
+     * @var Collection<int, Playlist>
+     */
+    #[ORM\OneToMany(targetEntity: Playlist::class, mappedBy: 'user_id', orphanRemoval: true)]
+    private Collection $playlists;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->favoriteCourses = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -316,5 +323,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            // set the owning side to null (unless already changed)
+            if ($playlist->getUserId() === $this) {
+                $playlist->setUserId(null);
+            }
+        }
+
+        return $this;
     }
 }

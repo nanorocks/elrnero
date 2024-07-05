@@ -16,6 +16,21 @@ class PlaylistRepository extends ServiceEntityRepository
         parent::__construct($registry, Playlist::class);
     }
 
+
+    /**
+     * Find all playlists with their associated users.
+     *
+     * @return Playlist[]
+     */
+    public function findAllWithUsers()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.user', 'u')
+            ->addSelect('u')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Playlist[] Returns an array of Playlist objects
     //     */

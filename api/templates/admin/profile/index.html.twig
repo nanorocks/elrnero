@@ -21,9 +21,9 @@
 					<input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
 				</div>
 
-				<div class="form-group mt-2 mb-2">
+				<div class="form-group mt-2 mb-2 d-none">
 					<label for="isBanned">Is Banned</label>
-					<input type="checkbox" id="isBanned" name="is_banned" {% if user.isBanned %} checked {% endif %} readonly>
+					<input type="checkbox" id="isBanned" name="is_banned" {% if user.isBanned %} checked {% endif %} disabled>
 				</div>
 
 				<div class="form-group">

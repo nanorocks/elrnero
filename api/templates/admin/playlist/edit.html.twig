@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Playlist
+{% endblock %}
+
+{% block body %}
+	<div class="card mt-4 shadow border-0 mb-4">
+		<div class="card-body">
+			<h5 class="card-title">Edit Playlist</h5>
+			<p class="card-text">The item will take direct action over the representation to the WEB UI.</p>
+
+			<form method="post" enctype="multipart/form-data" class="w-50">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" value="{{ playlist.name }}">
+				</div>
+
+				<div class="form-group">
+					<label for="description">Created At</label>
+					<input type="date" id="created_at" name="created_at" class="form-control" value="{{ playlist.getCreatedAt | date('Y-m-d') }}" required>
+				</div>
+				<div class="form-group">
+					<label for="user_id">User</label>
+					<select id="user_id" name="user_id" class="form-control">
+						<option value="">Select User</option>
+						{% for user in allUsers %}
+							<option value="{{ user.id }}" {% if playlist.getUser and playlist.getUser.getId == user.id %} selected {% endif %}>{{ user.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<button class="btn btn-primary mt-2">Save</button>
+			</form>
+
+			<div class="pt-2">
+
+				<a href="{{ path('playlist_index') }}" class="btn btn-primary">Back to list</a>
+				<form method="post" action="{{ path('playlist_delete', {'id': playlist.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">
+					<button class="btn btn-danger">delete</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
