@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,7 +29,7 @@ class User
     private ?string $password = null;
 
     #[ORM\Column]
-    private ?bool $is_admin = null;
+    private ?bool $is_banned = false;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $short_bio = null;
@@ -40,6 +42,9 @@ class User
 
     #[ORM\Column(nullable: true)]
     private ?array $soc_media = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = ['ROLE_USER'];
 
     /**
      * @var Collection<int, Course>
@@ -61,8 +66,6 @@ class User
      */
     #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'user_id', orphanRemoval: true)]
     private Collection $feedbacks;
-
-
 
     public function __construct()
     {
@@ -112,14 +115,14 @@ class User
         return $this;
     }
 
-    public function isAdmin(): ?bool
+    public function isBanned(): ?bool
     {
-        return $this->is_admin;
+        return $this->is_banned;
     }
 
-    public function setAdmin(bool $is_admin): static
+    public function setBanned(bool $is_banned): static
     {
-        $this->is_admin = $is_admin;
+        $this->is_banned = $is_banned;
 
         return $this;
     }
@@ -276,5 +279,42 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return 'secret';
+    }
+
+    public function eraseCredentials(): void
+    {
+        
+    }
+
+    /**
+     * Returns the identifier for this user (e.g. username or email address).
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

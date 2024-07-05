@@ -1,20 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Profile
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="card mt-4 shadow border-0 mb-4">
+		<div class="card-body">
+			<h5 class="card-title">Profile</h5>
+			<p class="card-text">Profile page where you update your personal info.</p>
+			<form method="post" enctype="multipart/form-data" class="w-50">
+				<input type="hidden" name="_token" value="{{ csrf_token('update' ~ user.id) }}">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" required>
+				</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/api/src/Controller/Admin/ProfileController.php</code></li>
-        <li>Your template at <code>/var/www/html/api/templates/admin/profile/index.html.twig</code></li>
-    </ul>
-</div>
+				<div class="form-group">
+					<label for="name">Email</label>
+					<input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+				</div>
+
+				<div class="form-group mt-2 mb-2">
+					<label for="isBanned">Is Banned</label>
+					<input type="checkbox" id="isBanned" name="is_banned" {% if user.isBanned %} checked {% endif %} readonly>
+				</div>
+
+				<div class="form-group">
+					<label for="short_bio">Bio</label>
+					<textarea id="short_bio" name="short_bio" class="form-control">{{ user.getShortBio }}</textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="avatar">Avatar</label>
+					<input type="file" id="avatar" name="avatar" class="form-control">
+					{% if user.avatar %}
+						<img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" alt="{{ user.name }}" width="100" class="img-fluid my-2">
+					{% else %}
+						No avatar
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<label for="jobTitle">Job Title</label>
+					<input type="text" id="job_title" name="job_title" class="form-control" value="{{ user.jobTitle }}">
+				</div>
+
+				<div class="form-group">
+					<label for="socMedia">Social Media</label>
+					<input type="text" id="soc_media" name="soc_media" class="form-control" value="{% if user.getSocMedia is not null and user.getSocMedia is defined %} {{ user.getSocMedia|join(', ') }} {% else %} None {% endif %}">
+					<div id="socMedia" class="form-text">Use comma separator to add Social Media.</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary mt-2">Update</button>
+			</form>
+
+			<div class="pt-2">
+				<form method="post" action="{{ path('user_delete', {'id': user.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+					<button type="submit" class="btn btn-danger">Delete account</button>
+				</form>
+			</div>
+		</div>
+	</div>
 {% endblock %}

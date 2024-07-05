@@ -4,10 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="card mt-4">
-		<div class="card-header">
-			<ul class="nav nav-tabs card-header-tabs"></ul>
-		</div>
+	<div class="card mt-4 shadow border-0 mb-4">
 		<div class="card-body">
 			<h5 class="card-title">User</h5>
 			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -23,8 +20,8 @@
 						<td>{{ user.name }}</td>
 					</tr>
 					<tr>
-						<th>Is Admin</th>
-						<td>{{ user.isAdmin ? 'true' : 'false' }}</td>
+						<th>Is Banned</th>
+						<td>{{ user.isBanned ? 'true' : 'false' }}</td>
 					</tr>
 					<tr>
 						<th>Bio</th>
@@ -70,6 +67,4 @@
 
 		</div>
 	</div>
-
-
 {% endblock %}

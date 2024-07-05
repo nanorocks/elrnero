@@ -6,10 +6,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="card mt-4">
-		<div class="card-header">
-			<ul class="nav nav-tabs card-header-tabs"></ul>
-		</div>
+	<div class="card mt-4 shadow border-0 mb-4">
 		<div class="card-body">
 			<div class="container-fluid">
 				<div class="d-flex justify-content-between">
@@ -42,8 +39,8 @@
 								<th>Id</th>
 								<th>Name</th>
 								<th>Email</th>
-								<th>Is Admin</th>
-								{# <th>Bio</th> #}
+								<th>Is Banned</th>
+								<th>Roles</th>
 								<th>Job Title</th>
 								<th>Soc Media</th>
 								<th>Actions</th>
@@ -65,9 +62,15 @@
 									<td>{{ user.id }}</td>
 									<td>{{ user.name }}</td>
 									<td>{{ user.email }}</td>
-									<td>{{ user.isAdmin ? 'true' : 'false' }}</td>
-									{# <td>{{ user.getShortBio }}</td> #}
-									<td>{{ user.getJobTitle }}</td>
+									<td>{{ user.isBanned ? 'true' : 'false' }}</td>
+									<td>{{ user.getRoles|join(' | ') }}</td>
+									<td>
+										{% if user.getJobTitle != null %}
+											{{ user.getJobTitle }}
+										{% else %}
+											None
+										{% endif %}
+									</td>
 									<td>
 										{% if user.getSocMedia is not null and user.getSocMedia is defined %}
 											{{ user.getSocMedia|map(link => link|trim)|join(', ') }}

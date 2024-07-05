@@ -33,7 +33,7 @@ class UserController extends AbstractController
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $email = $request->request->get('email');
-            $is_admin = $request->request->get('is_admin') ?? false;
+            $is_banned = $request->request->get('is_banned') ?? false;
             $bio = $request->request->get('bio');
             $avatarFile = $request->files->get('avatar');
             $job_title = $request->request->get('job_title');
@@ -42,7 +42,7 @@ class UserController extends AbstractController
             $user = new User();
             $user->setName($name);
             $user->setEmail($email);
-            $user->setAdmin($is_admin);
+            $user->setBanned($is_banned);
             $user->setShortBio($bio);
             $user->setJobTitle($job_title);
             $user->setPassword(md5('fake_pass_no_login'));
@@ -85,7 +85,7 @@ class UserController extends AbstractController
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $email = $request->request->get('email');
-            $is_admin = $request->request->get('is_admin') ?? false;
+            $is_banned = $request->request->get('is_banned') ?? false;
             $bio = $request->request->get('short_bio');
             $avatarFile = $request->files->get('avatar');
             $job_title = $request->request->get('job_title');
@@ -93,7 +93,7 @@ class UserController extends AbstractController
 
             $user->setName($name);
             $user->setEmail($email);
-            $user->setAdmin($is_admin);
+            $user->setBanned($is_banned);
             $user->setShortBio($bio);
             $user->setJobTitle($job_title);
 
