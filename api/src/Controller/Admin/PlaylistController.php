@@ -2,27 +2,43 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Playlist;
-use App\Entity\User;
-use App\Repository\PlaylistRepository;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use ErrorException;
+use App\Entity\User;
+use App\Entity\Playlist;
+use App\Repository\UserRepository;
+use App\Repository\PlaylistRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class PlaylistController extends AbstractController
 {
-
+  
     #[Route('/admin/playlist', name: 'playlist_index')]
-    public function index(PlaylistRepository $playlistRepository): Response
+    public function index(PlaylistRepository $playlistRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $queryBuilder = $playlistRepository->findAllWithUsersQuery();
+
+        // Handle filters
+        if ($request->query->getAlnum('name')) {
+            $queryBuilder->andWhere('c.name LIKE :name')
+                ->setParameter('name', '%' . $request->query->getAlnum('name') . '%');
+        }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+        
         return $this->render('/admin/playlist/index.html.twig', [
-            'playlists' => $playlistRepository->findAllWithUsers()
+            'pagination' => $pagination,
+            'filters' => $request->query->all(),
         ]);
     }
 
