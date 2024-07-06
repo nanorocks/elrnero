@@ -104,11 +104,11 @@ class Course
     #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'course_id')]
     private Collection $feedbacks;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updated_at = null;
-
     #[ORM\Column]
     private ?bool $is_published = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -509,18 +509,6 @@ class Course
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
     public function isPublished(): ?bool
     {
         return $this->is_published;
@@ -529,6 +517,18 @@ class Course
     public function setPublished(bool $is_published): static
     {
         $this->is_published = $is_published;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

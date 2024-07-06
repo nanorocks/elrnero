@@ -36,11 +36,26 @@ class Coupon
         return $this->code;
     }
 
-    public function setCode(string $code): static
+    public function setCode(): static
     {
-        $this->code = $code;
+        $this->code = $this->generateUniqueCode();
 
         return $this;
+    }
+
+    // Method to generate a unique coupon code
+    public function generateUniqueCode(): string
+    {
+        // Generate a random string
+        $randomString = bin2hex(random_bytes(4)); // Generates an 8-character string
+
+        // Get the current timestamp
+        $timestamp = time();
+
+        // Combine the random string and timestamp to create a unique code
+        $uniqueCode = strtoupper($randomString . $timestamp);
+
+        return $uniqueCode;
     }
 
     public function isValid(): ?bool
