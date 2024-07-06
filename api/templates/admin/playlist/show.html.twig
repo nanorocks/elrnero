@@ -35,7 +35,6 @@
 			</table>
 
 			<div class="pt-2">
-				<a href="{{ path('playlist_index') }}" class="btn btn-primary">Back to list</a>
 				<a href="{{ path('playlist_edit', {'id': playlist.id}) }}" class="btn btn-success">Edit</a>
 				<form method="post" action="{{ path('playlist_delete', {'id': playlist.id}) }}" style="display: inline-block;">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">

@@ -45,7 +45,6 @@
 			</table>
 
 			<div class="pt-2">
-				<a href="{{ path('category_index') }}" class="btn btn-primary">Back to list</a>
 				<a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-success">Edit</a>
 				<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display: inline-block;">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">

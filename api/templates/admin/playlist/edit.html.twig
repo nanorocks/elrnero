@@ -29,12 +29,10 @@
 					</select>
 				</div>
 
-				<button class="btn btn-primary mt-2">Save</button>
+				<button class="btn btn-primary mt-2">Update</button>
 			</form>
 
 			<div class="pt-2">
-
-				<a href="{{ path('playlist_index') }}" class="btn btn-primary">Back to list</a>
 				<form method="post" action="{{ path('playlist_delete', {'id': playlist.id}) }}" style="display: inline-block;">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ playlist.id) }}">
 					<button class="btn btn-danger">delete</button>

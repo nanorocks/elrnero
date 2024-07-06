@@ -52,12 +52,10 @@
 						<option value="{{ cat.id }}" {% if category.parent and category.parent.id == cat.id %} selected {% endif %}>{{ cat.name }}</option>
 					{% endfor %}
 				</select>
-				<button class="btn btn-primary mt-2">Save</button>
+				<button class="btn btn-primary mt-2">Update</button>
 			</form>
 
 			<div class="pt-2">
-
-				<a href="{{ path('category_index') }}" class="btn btn-primary">Back to list</a>
 				<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display: inline-block;">
 					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
 					<button class="btn btn-danger">delete</button>

@@ -128,33 +128,6 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {% if app.request.attributes.get('_route') == 'coupon_index' %}active{% endif %}" href="{{ path('coupon_index') }}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-percent">
-										<line x1="19" y1="5" x2="5" y2="19"></line>
-										<circle cx="6.5" cy="6.5" r="2.5"></circle>
-										<circle cx="17.5" cy="17.5" r="2.5"></circle>
-									</svg>
-									Coupons
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {% if app.request.attributes.get('_route') == 'course_index' %}active{% endif %}" href="{{ path('course_index') }}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-										<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-										<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-									</svg>
-									Courses
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {% if app.request.attributes.get('_route') == 'feedback_index' %}active{% endif %}" href="{{ path('feedback_index') }}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square">
-										<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-									</svg>
-									Feedbacks
-								</a>
-							</li>
-							<li class="nav-item">
 								<a class="nav-link {% if app.request.attributes.get('_route') == 'playlist_index' %}active{% endif %}" href="{{ path('playlist_index') }}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
 										<line x1="8" y1="6" x2="21" y2="6"></line>
@@ -167,6 +140,35 @@
 									Playlists
 								</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'course_index' %}active{% endif %}" href="{{ path('course_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
+										<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+										<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+									</svg>
+									Courses
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'coupon_index' %}active{% endif %}" href="{{ path('coupon_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-percent">
+										<line x1="19" y1="5" x2="5" y2="19"></line>
+										<circle cx="6.5" cy="6.5" r="2.5"></circle>
+										<circle cx="17.5" cy="17.5" r="2.5"></circle>
+									</svg>
+									Coupons
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'feedback_index' %}active{% endif %}" href="{{ path('feedback_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square">
+										<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+									</svg>
+									Feedbacks
+								</a>
+							</li>
+
 							<li class="nav-item">
 								<a class="nav-link {% if app.request.attributes.get('_route') == 'order_index' %}active{% endif %}" href="{{ path('order_index') }}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
