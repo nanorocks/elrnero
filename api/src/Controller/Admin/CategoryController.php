@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,12 +17,27 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CategoryController extends AbstractController
 {
-    
+
     #[Route('/admin/categories', name: 'category_index')]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $queryBuilder = $categoryRepository->createQueryBuilder('c');
+
+        // Handle filters
+        if ($request->query->getAlnum('name')) {
+            $queryBuilder->andWhere('c.name LIKE :name')
+                ->setParameter('name', '%' . $request->query->getAlnum('name') . '%');
+        }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+
         return $this->render('/admin/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'pagination' => $pagination,
+            'filters' => $request->query->all(),
         ]);
     }
 
@@ -44,7 +60,7 @@ class CategoryController extends AbstractController
 
             $slug = $slugger->slug($name)->lower();
             $category->setSlug($slug);
-            
+
             if ($parentId) {
                 $parent = $entityManager->getRepository(Category::class)->find($parentId);
                 $category->setParent($parent);
