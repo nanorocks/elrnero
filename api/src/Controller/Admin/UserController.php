@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Enum\RoleEnum;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,12 +17,25 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class UserController extends AbstractController
 {
     #[Route('/admin/users', name: 'user_index')]
-    public function index(EntityManagerInterface $entityManager,): Response
+    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $allUsers = $entityManager->getRepository(User::class)->findAll();
+        $queryBuilder = $userRepository->createQueryBuilder('c');
+
+        // Handle filters
+        if ($request->query->getAlnum('email')) {
+            $queryBuilder->andWhere('c.email LIKE :email')
+                ->setParameter('email', '%' . $request->query->getAlnum('email') . '%');
+        }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
 
         return $this->render('/admin/user/index.html.twig', [
-            'users' => $allUsers,
+            'pagination' => $pagination,
+            'filters' => $request->query->all(),
         ]);
     }
 
