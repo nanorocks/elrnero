@@ -75,8 +75,8 @@
 									<td>{{ category.description }}</td>
 									<td>
 										{% if category.avatar %}
-											<a href="{{ asset('uploads/avatars/' ~ category.avatar) }}" target="_blank">
-												<img src="{{ asset('uploads/avatars/' ~ category.avatar) }}" alt="{{ category.name }}" width="50">
+											<a href="{{ asset('uploads/avatars/categories/' ~ category.avatar) }}" target="_blank">
+												<img src="{{ asset('uploads/avatars/categories/' ~ category.avatar) }}" alt="{{ category.name }}" width="50">
 											</a>
 										{% else %}
 											None

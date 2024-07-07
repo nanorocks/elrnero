@@ -73,7 +73,7 @@ class CategoryController extends AbstractController
 
                 try {
                     $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
+                        $this->getParameter('avatars_directory') . '/categories/',
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -121,7 +121,7 @@ class CategoryController extends AbstractController
 
                 try {
                     $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
+                        $this->getParameter('avatars_directory') . '/categories/',
                         $newFilename
                     );
                 } catch (FileException $e) {
