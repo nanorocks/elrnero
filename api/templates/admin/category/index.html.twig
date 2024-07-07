@@ -60,7 +60,6 @@
 								<th>ID</th>
 								<th>Name</th>
 								<th>URI Slug</th>
-								<th>Description</th>
 								<th>Avatar</th>
 								<th>Parent</th>
 								<th>Actions</th>
@@ -72,7 +71,6 @@
 									<td>{{ category.id }}</td>
 									<td>{{ category.name }}</td>
 									<td>{{ category.slug }}</td>
-									<td>{{ category.description }}</td>
 									<td>
 										{% if category.avatar %}
 											<a href="{{ asset('uploads/avatars/categories/' ~ category.avatar) }}" target="_blank">
