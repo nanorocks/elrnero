@@ -2,9 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Course;
+use App\Enum\LevelEnum;
 use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,10 +18,25 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class CourseController extends AbstractController
 {
     #[Route('/admin/courses', name: 'course_index')]
-    public function index(CourseRepository $courseRepository): Response
+    public function index(CourseRepository $courseRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $queryBuilder = $courseRepository->createQueryBuilder('c');
+
+        // Handle filters
+        if ($request->query->getAlnum('name')) {
+            $queryBuilder->andWhere('c.name LIKE :name')
+                ->setParameter('name', '%' . $request->query->getAlnum('name') . '%');
+        }
+
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+
         return $this->render('/admin/course/index.html.twig', [
-            'courses' => $courseRepository->findAll(),
+            'pagination' => $pagination,
+            'filters' => $request->query->all(),
         ]);
     }
 
@@ -26,43 +44,83 @@ class CourseController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         // Fetch all courses to populate the parent course dropdown
-        $allCourses = $entityManager->getRepository(Course::class)->findAll();
-
+        $levels = LevelEnum::getAllLevels();
+        $allUsers = $entityManager->getRepository(User::class)->findAll();
 
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $description = $request->request->get('description');
-            $avatarFile = $request->files->get('avatar');
-            $parentId = $request->request->get('parent_id');
+            $lastUpdated = $request->request->get('last_updated');
+            $language = $request->request->get('language');
+            $totalHours = $request->request->get('total_hours');
+            $totalVideos = $request->request->get('total_videos');
+            $totalArticles = $request->request->get('total_articles');
+            $downloadableResources = $request->request->get('downloadable_resources');
+            $price = $request->request->get('price');
+            $percentageDiscountForPrice = $request->request->get('percentage_discount_for_price');
+            $multiPlatformAccess = $request->request->get('multi_platform_access') ?? false;
+            $hasCertificate = $request->request->get('has_certificate') ?? false;
+            $isPublished = $request->request->get('is_published') ?? false;
+            $level = $request->request->get('level');
+            $totalStudents = $request->request->get('total_students');
+            $tags = $request->request->get('tags', '');
+            $video_thumbnail = $request->files->get('video_thumbnail');
+            $user_id = $request->request->get('user_id');
+
+
+            // Check if the input string is not empty
+            if (!empty($tagsString)) {
+                // Split the string into an array and trim whitespace
+                $tags = array_map('trim', explode(',', $tagsString));
+
+                // Optionally, remove empty tags
+                $tags = array_filter($tags, fn ($tag) => !empty($tag));
+            } else {
+                $tags = [];
+            }
 
             $course = new Course();
+            $user = $entityManager->getRepository(User::class)->find($user_id);
+
             $course->setName($name);
             $course->setDescription($description);
+            $course->setLastUpdated(\DateTime::createFromFormat('Y-m-d', $lastUpdated));
+            $course->setLanguage($language);
+            $course->setTotalHours($totalHours);
+            $course->setTotalVideos($totalVideos);
+            $course->setTotalArticles($totalArticles);
+            $course->setDownloadableResources($downloadableResources);
+            $course->setPrice($price);
+            $course->setPercentageDiscountForPrice($percentageDiscountForPrice);
+            $course->setMultiPlatformAccess($multiPlatformAccess);
+            $course->setHasCertificate($hasCertificate);
+            $course->setPublished($isPublished);
+            $course->setLevel($level);
+            $course->setTotalStudents($totalStudents);
+            $course->setTags($tags);
+            $course->setUser($user);
 
             $slug = $slugger->slug($name)->lower();
             $course->setSlug($slug);
-            
-            if ($parentId) {
-                $parent = $entityManager->getRepository(Course::class)->find($parentId);
-                $course->setParent($parent);
-            }
 
-            if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+            if ($video_thumbnail) {
+                $originalFilename = pathinfo($video_thumbnail->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $video_thumbnail->guessExtension();
 
                 try {
-                    $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
+                    $video_thumbnail->move(
+                        $this->getParameter('avatars_directory') . '/courses/',
                         $newFilename
                     );
                 } catch (FileException $e) {
                     // Handle exception if something happens during file upload
+
                 }
 
-                $course->setAvatar($newFilename);
+                $course->setVideoThumbnail($newFilename);
             }
+
 
             $entityManager->persist($course);
             $entityManager->flush();
@@ -71,7 +129,8 @@ class CourseController extends AbstractController
         }
 
         return $this->render('admin/course/new.html.twig', [
-            'allCourses' => $allCourses,
+            'levels' => $levels,
+            'allUsers' => $allUsers
         ]);
     }
 
@@ -81,28 +140,65 @@ class CourseController extends AbstractController
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $description = $request->request->get('description');
-            $avatarFile = $request->files->get('avatar');
-            $parentId = $request->request->get('parent_id');
+            $lastUpdated = $request->request->get('last_updated');
+            $language = $request->request->get('language');
+            $totalHours = $request->request->get('total_hours');
+            $totalVideos = $request->request->get('total_videos');
+            $totalArticles = $request->request->get('total_articles');
+            $downloadableResources = $request->request->get('downloadable_resources');
+            $price = $request->request->get('price');
+            $percentageDiscountForPrice = $request->request->get('percentage_discount_for_price');
+            $multiPlatformAccess = $request->request->get('multi_platform_access') ?? false;
+            $hasCertificate = $request->request->get('has_certificate') ?? false;
+            $isPublished = $request->request->get('is_published') ?? false;
+            $level = $request->request->get('level');
+            $totalStudents = $request->request->get('total_students');
+            $tags = $request->request->get('tags', '');
+            $video_thumbnail = $request->files->get('video_thumbnail');
+            $user_id = $request->request->get('user_id');
+
+            // Check if the input string is not empty
+            if (!empty($tagsString)) {
+                // Split the string into an array and trim whitespace
+                $tags = array_map('trim', explode(',', $tagsString));
+
+                // Optionally, remove empty tags
+                $tags = array_filter($tags, fn ($tag) => !empty($tag));
+            } else {
+                $tags = [];
+            }
+
+            $user = $entityManager->getRepository(User::class)->find($user_id);
 
             $course->setName($name);
             $course->setDescription($description);
+            $course->setLastUpdated(\DateTime::createFromFormat('Y-m-d', $lastUpdated));
+            $course->setLanguage($language);
+            $course->setTotalHours($totalHours);
+            $course->setTotalVideos($totalVideos);
+            $course->setTotalArticles($totalArticles);
+            $course->setDownloadableResources($downloadableResources);
+            $course->setPrice($price);
+            $course->setPercentageDiscountForPrice($percentageDiscountForPrice);
+            $course->setMultiPlatformAccess($multiPlatformAccess);
+            $course->setHasCertificate($hasCertificate);
+            $course->setPublished($isPublished);
+            $course->setLevel($level);
+            $course->setTotalStudents($totalStudents);
+            $course->setTags($tags);
+            $course->setUser($user);
 
             $slug = $slugger->slug($name)->lower();
             $course->setSlug($slug);
 
-            if ($parentId) {
-                $parent = $entityManager->getRepository(course::class)->find($parentId);
-                $course->setParent($parent);
-            }
-
-            if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+            if ($video_thumbnail) {
+                $originalFilename = pathinfo($video_thumbnail->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $video_thumbnail->guessExtension();
 
                 try {
-                    $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
+                    $video_thumbnail->move(
+                        $this->getParameter('avatars_directory') . '/courses/',
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -110,7 +206,7 @@ class CourseController extends AbstractController
 
                 }
 
-                $course->setAvatar($newFilename);
+                $course->setVideoThumbnail($newFilename);
             }
 
             $entityManager->flush();
@@ -128,8 +224,11 @@ class CourseController extends AbstractController
     #[Route('/admin/courses/{id}', name: 'course_show')]
     public function show(Course $course): Response
     {
+        $level = LevelEnum::getNameByValue($course->getLevel());
+
         return $this->render('admin/course/show.html.twig', [
             'course' => $course,
+            'level' => $level
         ]);
     }
 

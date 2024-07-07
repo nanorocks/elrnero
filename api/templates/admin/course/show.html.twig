@@ -1,53 +1,147 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}View Category
+{% block title %}View Course
 {% endblock %}
 
 {% block body %}
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							<a href="{{ path('course_index') }}">Courses</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">
+							{{ course.id }}
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				Course
+			</div>
+		</div>
+	</div>
+	<p class="text-secondary">Any details related to this entity item can be viewed here.</p>
 	<div class="card mt-1 shadow border-0 mb-4">
 		<div class="card-body">
-			<h5 class="card-title">Category</h5>
-			<p class="card-text">Any details related to this entity item can be viewed here.</p>
-
 			<table class="table">
 				<tbody>
 					<tr>
 						<th>ID</th>
-						<td>{{ category.id }}</td>
+						<td>{{ course.id }}</td>
 					</tr>
 					<tr>
 						<th>Name</th>
-						<td>{{ category.name }}</td>
+						<td>{{ course.name }}</td>
 					</tr>
 					<tr>
 						<th>Slug</th>
-						<td>{{ category.slug }}</td>
+						<td>{{ course.slug }}</td>
 					</tr>
 					<tr>
 						<th>Description</th>
-						<td>{{ category.description }}</td>
+						<td>{{ course.description }}</td>
 					</tr>
 					<tr>
-						<th>Avatar</th>
+						<th>Last Updated</th>
+						<td>{{ course.getLastUpdated | date }}</td>
+					</tr>
+
+					<tr>
+						<th>Language</th>
+						<td>{{ course.language }}</td>
+					</tr>
+
+					<tr>
+						<th>Total Hours</th>
+						<td>{{ course.getTotalHours }}</td>
+					</tr>
+
+					<tr>
+						<th>Total Videos</th>
+						<td>{{ course.getTotalVideos }}</td>
+					</tr>
+
+					<tr>
+						<th>Total Articles</th>
+						<td>{{ course.getTotalArticles }}</td>
+					</tr>
+					<tr>
+						<th>Downloadable Resources</th>
+						<td>{{ course.getDownloadableResources }}</td>
+					</tr>
+					<tr>
+						<th>Multi platform Access</th>
+						<td>{{ course.isMultiPlatformAccess ? 'true' : 'false' }}</td>
+					</tr>
+					<tr>
+						<th>Has Certificate</th>
+						<td>{{ course.hasCertificate ? 'true' : 'false' }}</td>
+					</tr>
+					<tr>
+						<th>Price</th>
 						<td>
-							{% if category.avatar %}
-								<img src="{{ asset('uploads/avatars/' ~ category.avatar) }}" alt="{{ category.name }}" width="100">
-							{% else %}
-								No avatar
-							{% endif %}
+							{{ course.getPrice is not null ? course.getPrice : 'None' }}
+							{{ course.getPrice is not null ? '$' : '' }}
 						</td>
 					</tr>
 					<tr>
-						<th>Parent</th>
-						<td>{{ category.parent ? category.parent.name : 'None' }}</td>
+						<th>Percentage Discount For Price</th>
+						<td>
+							{{ course.getPercentageDiscountForPrice is not null ? course.getPercentageDiscountForPrice : 'None' }}
+							{{ course.getPercentageDiscountForPrice is not null ? '%' : '' }}
+						</td>
+					</tr>
+					<tr>
+						<th>Total Students</th>
+						<td>{{ course.getTotalStudents }}</td>
+					</tr>
+					<tr>
+						<th>Tags</th>
+						<td>
+							{% if course.tags is not null and course.tags is defined %}
+								{{ course.tags|map(link => link|trim)|join(', ') }}
+							{% else %}
+								None
+							{% endif %}
+						</td>
+					</tr>
+
+					<tr>
+						<th>Level</th>
+						<td>{{ level }}</td>
+					</tr>
+
+					<tr>
+						<th>Is Published</th>
+						<td>{{ course.isPublished ? 'true' : 'false' }}</td>
+					</tr>
+
+
+					<tr>
+						<th>Video Thumbnail</th>
+						<td>
+							{% if course.getVideoThumbnail %}
+								<a href="{{ asset('uploads/avatars/courses/' ~ course.getVideoThumbnail) }}" target="_blank">
+									<img src="{{ asset('uploads/avatars/courses/' ~ course.getVideoThumbnail) }}" alt="{{ course.name }}" width="50">
+								</a>
+							{% else %}
+								None
+							{% endif %}
+						</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div class="pt-2">
-				<a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-success">Edit</a>
-				<form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display: inline-block;">
-					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+				<a href="{{ path('course_edit', {'id': course.id}) }}" class="btn btn-success">Edit</a>
+				<form method="post" action="{{ path('course_delete', {'id': course.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ course.id) }}">
 					<button class="btn btn-danger">delete</button>
 				</form>
 			</div>
@@ -55,6 +149,4 @@
 
 		</div>
 	</div>
-
-
 {% endblock %}

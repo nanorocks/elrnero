@@ -1,42 +1,188 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category
+{% block title %}New Course
 {% endblock %}
 
 {% block body %}
-	<div class="card mt-1 shadow border-0 mb-4">
-
-		<div class="card-body">
-			<h5 class="card-title">New Category</h5>
-			<p class="card-text">New item to this entity will be added. This will take direct action over the representation to the WEB UI.</p>
-
-			<form method="post" enctype="multipart/form-data" class="w-50">
-				<div class="form-group">
-					<label for="name">Name</label>
-					<input type="text" id="name" name="name" class="form-control" required>
-				</div>
-				<div class="form-group">
-					<label for="description">Description</label>
-					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="avatar">Avatar</label>
-					<br/>
-					<input type="file" id="avatar" name="avatar" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="parent_id">Parent Category</label>
-					<select id="parent_id" name="parent_id" class="form-control">
-						<option value="">Select Parent Category</option>
-						{% for cat in allCategories %}
-							<option value="{{ cat.id }}">{{ cat.name }}</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="pt-2">
-					<button type="submit" class="btn btn-primary">Create Category</button>
-				</div>
-			</form>
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							<a href="{{ path('course_index') }}">Courses</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">
+							New
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				New Course
+			</div>
 		</div>
 	</div>
-{% endblock %}
+	<p class="text-secondary">New item to this entity will be added. This will take direct action over the representation to the WEB UI.</p>
+
+	<div class="card mt-1 shadow border-0 mb-4">
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data" class="w-100">
+				<div class="row">
+					<div class="col-md-10">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea id="description" name="description" class="form-control" rows="3" maxlength="500" required></textarea>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="last_updated">Last Updated</label>
+									<br/>
+									<input type="date" id="last_updated" name="last_updated" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="language">Language</label>
+									<br/>
+									<input type="text" id="language" name="language" class="form-control" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="total_hours">Total Hours</label>
+									<br/>
+									<input type="number" id="total_hours" name="total_hours" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="total_videos">Total Videos</label>
+									<br/>
+									<input type="number" id="total_videos" name="total_videos" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="total_articles">Total Articles</label>
+									<br/>
+									<input type="number" id="total_articles" name="total_articles" class="form-control" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="downloadable_resources">Downloadable Resources</label>
+									<br/>
+									<input type="number" id="downloadable_resources" name="downloadable_resources" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="price">Price</label>
+									<br/>
+									<input type="number" id="price" name="price" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="percentage_discount_for_price">Discount for price</label>
+									<br/>
+									<input type="number" id="percentage_discount_for_price" name="percentage_discount_for_price" class="form-control" max="50" required>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="video_thumbnail">Video Thumbnail</label>
+							<br/>
+							<input type="file" id="video_thumbnail" name="video_thumbnail" class="form-control">
+						</div>
+
+						<div class="row my-2">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="multi_platform_access">Multi Platform Access</label>
+
+									<input type="checkbox" id="multi_platform_access" name="multi_platform_access" value="true" checked>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="has_certificate">Has Certificate</label>
+
+									<input type="checkbox" id="has_certificate" name="has_certificate" value="true" checked>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="is_published">Is Pablished</label>
+									<input type="checkbox" id="is_published" name="is_published" value="true" checked>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="level">Level</label>
+									<select id="level" name="level" class="form-control">
+										<option value="">Select Parent Category</option>
+										{% for key, level in levels %}
+											<option value="{{ key + 1 }}">{{ level }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="user_id">User</label>
+									<select id="user_id" name="user_id" class="form-control">
+										<option value="">Select User</option>
+										{% for user in allUsers %}
+											<option value="{{ user.id }}">{{ user.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="total_students">Total Students</label>
+									<br/>
+									<input type="number" id="total_students" name="total_students" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="tags">Tags</label>
+									<br/>
+									<input type="text" id="tags" name="tags" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="pt-4">
+							<button type="submit" class="btn btn-primary">Create Course</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		{% endblock %}

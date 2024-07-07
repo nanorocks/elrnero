@@ -6,59 +6,88 @@
 {% endblock %}
 
 {% block body %}
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Courses</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
+					<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+					<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+				</svg>
+				Courses
+			</div>
+		</div>
+
+		<div>
+			<a class="btn btn-primary mt-2" href="{{ path('course_new') }}">
+				<svg xmlns="http://www.w3.org/2000/svg" class="pe-2" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
+					<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+					<line x1="12" y1="8" x2="12" y2="16"></line>
+					<line x1="8" y1="12" x2="16" y2="12"></line>
+				</svg>Create New</a>
+		</div>
+	</div>
+	<p class="text-secondary">Here we represent and create all courses for Elrnero App. All related changes here will be represented direcly in the Web UI.</p>
+
 	<div class="card mt-1 shadow border-0 mb-4">
 		<div class="card-body">
 			<div class="container-fluid">
-				<div class="d-flex justify-content-between">
-					<h2 class="d-flex align-items-center">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-							<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-							<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-						</svg>
-						Courses
-					</h2>
-
-					<div>
-						<a class="btn btn-primary" href="{{ path('course_new') }}">
-							<svg xmlns="http://www.w3.org/2000/svg" class="pe-2" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
-								<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-								<line x1="12" y1="8" x2="12" y2="16"></line>
-								<line x1="8" y1="12" x2="16" y2="12"></line>
-							</svg>Create New</a>
-					</div>
+				<div class="row">
+					<form method="get" action="{{ path('course_index') }}" class="mb-3 col-12 col-md-8 col-lg-6 col-sm-8">
+						<div class=" d-flex">
+							<div class="me-2">
+								<input type="text" id="name" name="name" class="form-control" value="{{ filters.name ?? '' }}" placeholder="Filter by name...">
+							</div>
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">Filter</button>
+								<a href="{{ path('course_index') }}" class="btn btn-secondary">Clear</a>
+							</div>
+						</div>
+					</form>
 				</div>
-
-				<p class="text-secondary">Here we represent and create all courses for Elrnero App. All related changes here will be represented direcly in the Web UI.</p>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr class="text-center">
 								<th>ID</th>
+								<th>Thumbnail</th>
 								<th>Name</th>
-								<th>URI Slug</th>
-								<th>Description</th>
-								<th>Avatar</th>
-								<th>Parent</th>
+								<th>Last Updated</th>
+								<th>Price</th>
+								<th>Total Students</th>
+								<th>Level</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for course in courses %}
+							{% for course in pagination.items %}
 								<tr class="text-center">
 									<td>{{ course.id }}</td>
-									<td>{{ course.name }}</td>
-									<td>{{ course.slug }}</td>
-									<td>{{ course.description }}</td>
 									<td>
-										{% if course.avatar %}
-											<a href="{{ asset('uploads/avatars/' ~ course.avatar) }}" target="_blank">
-												<img src="{{ asset('uploads/avatars/' ~ course.avatar) }}" alt="{{ course.name }}" width="50">
+										{% if course.getVideoThumbnail %}
+											<a href="{{ asset('uploads/avatars/courses/' ~ course.getVideoThumbnail) }}" target="_blank">
+												<img src="{{ asset('uploads/avatars/courses/' ~ course.getVideoThumbnail) }}" alt="{{ course.name }}" width="50">
 											</a>
 										{% else %}
-											No avatar
+											None
 										{% endif %}
 									</td>
-									<td>{{ course.parent ? course.parent.name : 'None' }}</td>
+									<td>{{ course.name }}</td>
+									<td>{{ course.getLastUpdated | date }}</td>
+									<td>{{ course.price }}</td>
+									<td>{{ course.getTotalStudents }}</td>
+									<td>{{ course.getLevel }}</td>
+
+
 									<td class="pt-3" style="font-size: 10px;">
 										<a class="nav-link text-primary d-inline-block" href="{{ path('course_show', {'id': course.id}) }}">
 											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
@@ -89,12 +118,11 @@
 							{% endfor %}
 						</tbody>
 					</table>
-
+					<div class="pagination">
+						{{ knp_pagination_render(pagination) }}
+					</div>
 				</div>
-
-
 			</div>
-
 		</div>
 	</div>
 

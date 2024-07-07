@@ -59,10 +59,7 @@ class Course
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    /**
-     * @var Collection<int, CourseSection>
-     */
-    #[ORM\OneToMany(targetEntity: CourseSection::class, mappedBy: 'course_id', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: CourseSection::class, orphanRemoval: false)]
     private Collection $courseSections;
 
     #[ORM\Column]
@@ -71,37 +68,22 @@ class Course
     #[ORM\Column(nullable: true)]
     private ?array $tags = null;
 
-    /**
-     * @var Collection<int, CategoryCourse>
-     */
-    #[ORM\OneToMany(targetEntity: CategoryCourse::class, mappedBy: 'course_id')]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: CategoryCourse::class)]
     private Collection $categoryCourses;
 
     #[ORM\Column(nullable: true)]
     private ?int $level = null;
 
-    /**
-     * @var Collection<int, FavoriteCourse>
-     */
-    #[ORM\OneToMany(targetEntity: FavoriteCourse::class, mappedBy: 'course_id', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: FavoriteCourse::class, orphanRemoval: true)]
     private Collection $favoriteCourses;
 
-    /**
-     * @var Collection<int, CoursePlaylist>
-     */
-    #[ORM\OneToMany(targetEntity: CoursePlaylist::class, mappedBy: 'course_id')]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: CoursePlaylist::class)]
     private Collection $coursePlaylists;
 
-    /**
-     * @var Collection<int, Coupon>
-     */
-    #[ORM\OneToMany(targetEntity: Coupon::class, mappedBy: 'course_id', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Coupon::class, orphanRemoval: true)]
     private Collection $coupons;
 
-    /**
-     * @var Collection<int, Feedback>
-     */
-    #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'course_id')]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Feedback::class)]
     private Collection $feedbacks;
 
     #[ORM\Column]
