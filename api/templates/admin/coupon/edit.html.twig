@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Coupon
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item" aria-current="page">
+							<a href="{{ path('coupon_index') }}">Coupons</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">
+							{{ coupon.id }}
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				Edit Coupon
+			</div>
+		</div>
+	</div>
+	<p class="text-secondary">The item will take direct action over the representation to the WEB UI.</p>
+
+	<div class="card mt-1 shadow border-0 mb-4">
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data" class="w-50">
+
+			<div class="form-group">
+					<label for="course_id">Course</label>
+					<select id="course_id" name="course_id" class="form-control" required>
+						<option value="">Select Course</option>
+						{% for course in allCourses %}
+							<option value="{{ course.id }}" {% if course.getId == coupon.getCourse.getId %} selected {% endif %}>{{ course.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="code">Code</label>
+					<input type="text" id="code" name="code" min="1" value="{{ coupon.getCode }}" class="form-control" required disabled>
+				</div>
+				<div class="form-group">
+					<label for="absolute_discount">Absolute Discount in $</label>
+					<input type="number" id="absolute_discount" name="absolute_discount" min="1" value="{{ coupon.getAbsoluteDiscount }}" class="form-control" required>
+				</div>
+
+				<div class="form-group mt-2 mb-2">
+					<label for="isValid">Is Valid</label>
+					<input type="checkbox" id="isValid" name="is_valid" {% if coupon.isValid %} checked {% endif %} readonly>
+				</div>
+
+				<button class="btn btn-primary mt-2">Update</button>
+			</form>
+
+			<div class="pt-2">
+				<form method="post" action="{{ path('coupon_delete', {'id': coupon.id}) }}" style="display: inline-block;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ coupon.id) }}">
+					<button class="btn btn-danger">delete</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

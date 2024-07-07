@@ -1,20 +1,113 @@
+{# templates/dashboard/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CouponController!{% endblock %}
+{% block title %}Coupons
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Coupons</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter mr-2">
+					<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+				</svg>
+				Coupons
+			</div>
+		</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		<div>
+			<a class="btn btn-primary mt-2" href="{{ path('coupon_new') }}">
+				<svg xmlns="http://www.w3.org/2000/svg" class="pe-2" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
+					<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+					<line x1="12" y1="8" x2="12" y2="16"></line>
+					<line x1="8" y1="12" x2="16" y2="12"></line>
+				</svg>Create New</a>
+		</div>
+	</div>
+	<p class="text-secondary">Here we represent and create all coupons for Elrnero App. All related changes here will be represented direcly in the Web UI.</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/api/src/Controller/CouponController.php</code></li>
-        <li>Your template at <code>/var/www/html/api/templates/coupon/index.html.twig</code></li>
-    </ul>
-</div>
+	<div class="card mt-1 shadow border-0 mb-4">
+		<div class="card-body">
+			<div class="container-fluid">
+				<div class="row">
+					<form method="get" action="{{ path('coupon_index') }}" class="mb-3 col-12 col-md-8 col-lg-6 col-sm-8">
+						<div class=" d-flex">
+							<div class="me-2">
+								<input type="text" id="code" name="code" class="form-control" value="{{ filters.code ?? '' }}" placeholder="Filter by code...">
+							</div>
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">Filter</button>
+								<a href="{{ path('coupon_index') }}" class="btn btn-secondary">Clear</a>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>ID</th>
+								<th>Course Name</th>
+								<th>Code</th>
+								<th>Is Valid</th>
+								<th>Absolute Discount</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for coupon in pagination.items %}
+								<tr class="text-center">
+									<td>{{ coupon.id }}</td>
+									<td>{{ coupon.getCourse.getName }}</td>
+									<td>{{ coupon.getCode }}</td>
+									<td>{{ coupon.isValid ? 'true' : 'false' }}</td>
+									<td>{{ coupon.getAbsoluteDiscount ?? '0' }}$</td>
+									<td class="pt-3" style="font-size: 10px;">
+										<a class="nav-link text-primary d-inline-block" href="{{ path('coupon_show', {'id': coupon.id}) }}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+												<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+												<circle cx="12" cy="12" r="3"></circle>
+											</svg>
+										</a>
+										<a class="nav-link text-success d-inline-block" href="{{ path('coupon_edit', {'id': coupon.id}) }}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+												<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+												<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+											</svg>
+										</a>
+										<form method="post" action="{{ path('coupon_delete', {'id': coupon.id}) }}" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this coupon?');">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ coupon.id) }}">
+											<button type="submit" class="nav-link text-danger">
+												<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+													<polyline points="3 6 5 6 21 6"></polyline>
+													<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+													<line x1="10" y1="11" x2="10" y2="17"></line>
+													<line x1="14" y1="11" x2="14" y2="17"></line>
+												</svg>
+											</button>
+										</form>
+
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<div class="pagination">
+						{{ knp_pagination_render(pagination) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

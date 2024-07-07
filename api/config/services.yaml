@@ -6,6 +6,11 @@
 parameters:
     avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 services:
+    App\Twig\AppExtension:
+        arguments:
+            $databaseSchemaService: '@App\Service\DatabaseSchemaService'
+        tags:
+            - { name: twig.extension }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
