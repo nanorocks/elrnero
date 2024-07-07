@@ -191,6 +191,13 @@
 							<button type="submit" class="btn btn-primary">Update</button>
 						</div>
 					</form>
+
+					<div class="pt-2">
+						<form method="post" action="{{ path('course_delete', {'id': course.id}) }}" style="display: inline-block;">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ course.id) }}">
+							<button class="btn btn-danger">delete</button>
+						</form>
+					</div>
 				</div>
 			</form>
 		</div>
