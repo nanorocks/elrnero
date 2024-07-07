@@ -20,6 +20,8 @@ class CourseController extends AbstractController
     #[Route('/admin/courses', name: 'course_index')]
     public function index(CourseRepository $courseRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $levels = LevelEnum::getAllLevels();
+
         $queryBuilder = $courseRepository->createQueryBuilder('c');
 
         // Handle filters
@@ -33,10 +35,11 @@ class CourseController extends AbstractController
             $request->query->getInt('page', 1), /* page number */
             10 /* limit per page */
         );
-
+        
         return $this->render('/admin/course/index.html.twig', [
             'pagination' => $pagination,
             'filters' => $request->query->all(),
+            'levels' => $levels
         ]);
     }
 
@@ -63,21 +66,9 @@ class CourseController extends AbstractController
             $isPublished = $request->request->get('is_published') ?? false;
             $level = $request->request->get('level');
             $totalStudents = $request->request->get('total_students');
-            $tags = $request->request->get('tags', '');
+            $tags = $request->request->get('tags');
             $video_thumbnail = $request->files->get('video_thumbnail');
             $user_id = $request->request->get('user_id');
-
-
-            // Check if the input string is not empty
-            if (!empty($tagsString)) {
-                // Split the string into an array and trim whitespace
-                $tags = array_map('trim', explode(',', $tagsString));
-
-                // Optionally, remove empty tags
-                $tags = array_filter($tags, fn ($tag) => !empty($tag));
-            } else {
-                $tags = [];
-            }
 
             $course = new Course();
             $user = $entityManager->getRepository(User::class)->find($user_id);
@@ -97,11 +88,14 @@ class CourseController extends AbstractController
             $course->setPublished($isPublished);
             $course->setLevel($level);
             $course->setTotalStudents($totalStudents);
-            $course->setTags($tags);
             $course->setUser($user);
 
             $slug = $slugger->slug($name)->lower();
             $course->setSlug($slug);
+
+            if ($tags) {
+                $course->setTags(explode(',', trim($tags)));
+            }
 
             if ($video_thumbnail) {
                 $originalFilename = pathinfo($video_thumbnail->getClientOriginalName(), PATHINFO_FILENAME);
@@ -153,20 +147,9 @@ class CourseController extends AbstractController
             $isPublished = $request->request->get('is_published') ?? false;
             $level = $request->request->get('level');
             $totalStudents = $request->request->get('total_students');
-            $tags = $request->request->get('tags', '');
+            $tags = $request->request->get('tags');
             $video_thumbnail = $request->files->get('video_thumbnail');
             $user_id = $request->request->get('user_id');
-
-            // Check if the input string is not empty
-            if (!empty($tagsString)) {
-                // Split the string into an array and trim whitespace
-                $tags = array_map('trim', explode(',', $tagsString));
-
-                // Optionally, remove empty tags
-                $tags = array_filter($tags, fn ($tag) => !empty($tag));
-            } else {
-                $tags = [];
-            }
 
             $user = $entityManager->getRepository(User::class)->find($user_id);
 
@@ -185,11 +168,14 @@ class CourseController extends AbstractController
             $course->setPublished($isPublished);
             $course->setLevel($level);
             $course->setTotalStudents($totalStudents);
-            $course->setTags($tags);
             $course->setUser($user);
 
             $slug = $slugger->slug($name)->lower();
             $course->setSlug($slug);
+
+            if ($tags) {
+                $course->setTags(explode(',', trim($tags)));
+            }
 
             if ($video_thumbnail) {
                 $originalFilename = pathinfo($video_thumbnail->getClientOriginalName(), PATHINFO_FILENAME);
@@ -214,9 +200,13 @@ class CourseController extends AbstractController
             return $this->redirectToRoute('course_index');
         }
 
+        $levels = LevelEnum::getAllLevels();
+        $allUsers = $entityManager->getRepository(User::class)->findAll();
+
         return $this->render('admin/course/edit.html.twig', [
             'course' => $course,
-            'allCourses' => $courseRepository->findAll(),
+            'levels' => $levels,
+            'allUsers' => $allUsers
         ]);
     }
 

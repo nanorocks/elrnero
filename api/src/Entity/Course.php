@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\LevelEnum;
 use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -362,6 +363,11 @@ class Course
     public function getLevel(): ?int
     {
         return $this->level;
+    }
+
+    public function getLevelName(): ?string
+    {
+        return LevelEnum::getNameByValue($this->level);
     }
 
     public function setLevel(?int $level): static
