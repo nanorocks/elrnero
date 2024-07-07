@@ -1,0 +1,21 @@
+nelmio_api_doc:
+    documentation:
+        servers:
+        - url: http://api.example.com/unsafe
+        - url: https://api.example.com/secured
+        info:
+            title: Elrnero Web API
+            description: Udemy base e-learning platform powered by Symfony PHP & React!
+            version: 1.0.0
+            x-build: #CommitHash
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+            security:
+                - Bearer: []
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
