@@ -1,8 +1,6 @@
 nelmio_api_doc:
     documentation:
-        servers:
-        - url: http://api.example.com/unsafe
-        - url: https://api.example.com/secured
+        servers: []
         info:
             title: Elrnero Web API
             description: Udemy base e-learning platform powered by Symfony PHP & React!

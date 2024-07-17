@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("course:read")]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -36,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $short_bio = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("course:read")]
     private ?string $avatar = null;
 
     #[ORM\Column(length: 255, nullable: true)]

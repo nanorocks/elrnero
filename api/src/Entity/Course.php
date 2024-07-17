@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Enum\LevelEnum;
-use App\Repository\CourseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -15,49 +16,64 @@ class Course
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("course:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("course:read")]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups("course:read")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups("course:read")]
     private ?\DateTimeInterface $last_updated = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("course:read")]
     private ?string $language = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?int $total_hours = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?int $total_videos = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?int $total_articles = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?int $downloadable_resources = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?bool $multi_platform_access = null;
 
     #[ORM\Column]
+    #[Groups("course:read")]
     private ?bool $has_certificate = null;
 
     #[ORM\Column]
+    #[Groups("course:read")]
     private ?float $price = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups("course:read")]
     private ?int $percentage_discount_for_price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("course:read")]
     private ?string $video_thumbnail = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("course:read")]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: CourseSection::class, orphanRemoval: false)]
@@ -88,9 +104,11 @@ class Course
     private Collection $feedbacks;
 
     #[ORM\Column]
+    #[Groups("course:read")]
     private ?bool $is_published = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("course:read")]
     private ?string $slug = null;
 
     public function __construct()
