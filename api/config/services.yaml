@@ -6,6 +6,9 @@
 parameters:
     avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 services:
+    App\EventListener\PreRequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
     App\Twig\AppExtension:
         arguments:
             $databaseSchemaService: '@App\Service\DatabaseSchemaService'
