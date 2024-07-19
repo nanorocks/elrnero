@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class ApiLoginController extends AbstractController
@@ -21,6 +22,10 @@ class ApiLoginController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
+        if($user->isBanned()) {
+            throw new AccessDeniedHttpException('Banned profile.');
+        }
+        
         $token = $jwtManager->create($user);
 
         $payload = $jwtManager->parse($token);

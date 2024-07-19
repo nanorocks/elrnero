@@ -78,7 +78,7 @@ class TokenSubscriber implements EventSubscriberInterface
                 }
 
                 if($user->isBanned()) {
-                    throw new AccessDeniedHttpException('Invalid credentials.');
+                    throw new AccessDeniedHttpException('Banned profile.');
                 }
                 
             } catch (JWTDecodeFailureException $e) {
