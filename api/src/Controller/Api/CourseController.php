@@ -9,15 +9,22 @@ use App\Repository\CourseRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Controller\Api\TokenAuthenticatedController;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class CourseController extends AbstractController
+class CourseController extends AbstractController implements TokenAuthenticatedController
 {
+    public function __construct(
+        private Security $security,
+    ){
+    }
+    
     #[Route('/api/courses', name: 'app_api_courses', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, SerializerInterface $serializer, PaginatorInterface $paginator, Request $request): JsonResponse
     {

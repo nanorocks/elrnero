@@ -4,10 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Coupon;
 use App\Entity\Course;
-use App\Entity\Category;
 use App\Repository\CouponRepository;
 use App\Repository\CategoryRepository;
-use App\Utils\Utils;
+use App\Utils;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
