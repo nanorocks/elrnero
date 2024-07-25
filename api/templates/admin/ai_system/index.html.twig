@@ -1,20 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AiSystemController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/api/src/Controller/Admin/AiSystemController.php</code></li>
-        <li>Your template at <code>/var/www/html/api/templates/admin/ai_system/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+    {% block title %}Ai System
+    {% endblock %}
+    
+    {% block body %}
+        <div class="d-flex justify-content-between mt-2 pt-2">
+            <div class="d-flex align-items-center row">
+                <div>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ path('dashboard_index') }}">Dashboard</a>
+                            </li>
+    
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Ai System
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="h1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                    Ai System
+                </div>
+            </div>
+        </div>
+        <p class="text-secondary">
+            <strong class="text-primary">ChatGPT</strong>
+            is a state-of-the-art conversational AI model developed by OpenAI. Designed to understand and generate human-like text, ChatGPT is capable of engaging in natural conversations, answering questions, providing recommendations, and assisting with a variety of tasks. It is an invaluable tool for businesses looking to enhance their customer support, create interactive chatbots, generate content, and more. With its advanced language understanding capabilities, ChatGPT can be integrated into various applications to improve user experiences and operational efficiency.
+        </p>
+    
+        <div class="card mt-1 shadow border-0 mb-4">
+            <div class="card-body">
+    
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="https://blog.routinehub.co/content/images/2023/02/openAI-chat-gpt-1.jpg" class="img-fluid w-100"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-end">
+                            <a href="https://chatgpt.com/" target="_blank">How to connect?</a>
+                        </div>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="name">API Key</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">API Secret</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+    
+                            <div class="pt-4 text-end">
+                                <button type="submit" class="btn btn-outline-primary">Test connection</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    

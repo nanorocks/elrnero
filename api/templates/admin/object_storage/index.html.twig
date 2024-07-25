@@ -1,20 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ObjectStorageController!{% endblock %}
+{% block title %}Object Storage
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+						<li class="breadcrumb-item active" aria-current="page">
+							Object Storage
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewbox="0 0 448 512"><path d="M96 152l0 8-48 0 0-8C48 68.1 116.1 0 200 0l48 0c83.9 0 152 68.1 152 152l0 8-48 0 0-8c0-57.4-46.6-104-104-104l-48 0C142.6 48 96 94.6 96 152zM0 224c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-5.1 0L388.5 469c-2.6 24.4-23.2 43-47.7 43l-233.6 0c-24.6 0-45.2-18.5-47.7-43L37.1 256 32 256c-17.7 0-32-14.3-32-32z"/></svg>
+				Object Storage
+			</div>
+		</div>
+	</div>
+	<p class="text-secondary">DigitalOcean
+		<strong class="text-primary">Spaces</strong>
+		is a scalable object storage service designed for developers and businesses to store and serve large amounts of data. It provides a simple, cost-effective way to store and deliver any amount of data, from web assets to user-generated content, backups, and archives. Spaces is ideal for a variety of use cases, including serving static assets for websites, storing large media files, hosting application backups, and more.
+	</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/api/src/Controller/Admin/ObjectStorageController.php</code></li>
-        <li>Your template at <code>/var/www/html/api/templates/admin/object_storage/index.html.twig</code></li>
-    </ul>
-</div>
+	<div class="card mt-1 shadow border-0 mb-4">
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-md-6">
+					<img src="https://www.creative-tim.com/assets/tools/digital-ocean-header-e2856d379be4afd4705ec58dc1a5fb7b2a00d0b9126cb29a36d2af395279d41b.png" class="img-fluid w-100"/>
+				</div>
+				<div class="col-md-6">
+					<div class="text-end">
+						<a href="https://digitalocean.com" target="_blank">How to connect?</a>
+					</div>
+					<form method="post">
+						<div class="form-group">
+							<label for="name">Access Key</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="name">Secret Key</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="name">Bucket</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="name">Region</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="name">Endpoint</label>
+							<input type="text" id="name" name="name" class="form-control" required>
+						</div>
+
+						<div class="pt-4 text-end">
+							<button type="submit" class="btn btn-outline-primary">Test connection</button>
+							<button type="submit" class="btn btn-primary">Save Changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
 {% endblock %}

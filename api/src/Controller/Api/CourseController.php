@@ -25,7 +25,7 @@ class CourseController extends AbstractController implements TokenAuthenticatedC
     ) {
     }
 
-    #[Route('/api/courses', name: 'app_api_courses', methods: ['GET'])]
+    #[Route('/api/v1/courses', name: 'app_api_courses', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, SerializerInterface $serializer, PaginatorInterface $paginator, Request $request): JsonResponse
     {
         // Fetch courses from the database
