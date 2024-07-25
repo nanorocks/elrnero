@@ -7,6 +7,7 @@ enum RoleEnum: string
     case USER = 'ROLE_USER';
     case ADMIN = 'ROLE_ADMIN';
     case CREATOR = 'ROLE_CREATOR';
+    case BUSINESS_USER = 'ROLE_BUSINESS_USER';
 
     /**
      * Get all roles as an array.

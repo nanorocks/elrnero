@@ -21,20 +21,20 @@ class CategoryController extends AbstractController
     #[Route('/admin/categories', name: 'category_index')]
     public function index(CategoryRepository $categoryRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $queryBuilder = $categoryRepository->createQueryBuilder('c');
+        $queryBuilder = $categoryRepository->createQueryBuilder('c')->orderBy('c.id', 'ASC');
 
         // Handle filters
         if ($request->query->getAlnum('name')) {
             $queryBuilder->andWhere('c.name LIKE :name')
                 ->setParameter('name', '%' . $request->query->getAlnum('name') . '%');
         }
-
+        
         $pagination = $paginator->paginate(
             $queryBuilder, /* query NOT result */
             $request->query->getInt('page', 1), /* page number */
             10 /* limit per page */
         );
-
+   
         return $this->render('/admin/category/index.html.twig', [
             'pagination' => $pagination,
             'filters' => $request->query->all(),
@@ -134,7 +134,9 @@ class CategoryController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('category_index', [
+                'page' => $request->query->get('page')
+            ]);
         }
 
         return $this->render('admin/category/edit.html.twig', [

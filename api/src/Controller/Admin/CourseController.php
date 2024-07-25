@@ -22,7 +22,7 @@ class CourseController extends AbstractController
     {
         $levels = LevelEnum::getAllLevels();
 
-        $queryBuilder = $courseRepository->createQueryBuilder('c');
+        $queryBuilder = $courseRepository->createQueryBuilder('c')->orderBy('c.id', 'ASC');
 
         // Handle filters
         if ($request->query->getAlnum('name')) {
@@ -197,7 +197,9 @@ class CourseController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('course_index');
+            return $this->redirectToRoute('course_index', [
+                'page' => $request->query->get('page')
+            ]);
         }
 
         $levels = LevelEnum::getAllLevels();

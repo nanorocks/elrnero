@@ -19,7 +19,7 @@ class UserController extends AbstractController
     #[Route('/admin/users', name: 'user_index')]
     public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $queryBuilder = $userRepository->createQueryBuilder('c');
+        $queryBuilder = $userRepository->createQueryBuilder('c')->orderBy('c.id', 'ASC');
 
         // Handle filters
         if ($request->query->getAlnum('email')) {
@@ -138,7 +138,9 @@ class UserController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_index', [
+                'page' => $request->query->get('page')
+            ]);
         }
 
         return $this->render('admin/user/edit.html.twig', [

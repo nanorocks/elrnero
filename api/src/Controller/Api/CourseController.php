@@ -22,14 +22,14 @@ class CourseController extends AbstractController implements TokenAuthenticatedC
 {
     public function __construct(
         private Security $security,
-    ){
+    ) {
     }
-    
+
     #[Route('/api/courses', name: 'app_api_courses', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, SerializerInterface $serializer, PaginatorInterface $paginator, Request $request): JsonResponse
     {
         // Fetch courses from the database
-        $queryBuilder = $entityManager->getRepository(Course::class)->createQueryBuilder('c');
+        $queryBuilder = $entityManager->getRepository(Course::class)->createQueryBuilder('c')->orderBy('c.id', 'ASC');
 
         // Paginate the results of the query
         $pagination = $paginator->paginate(

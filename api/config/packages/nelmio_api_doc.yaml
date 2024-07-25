@@ -2,7 +2,7 @@ nelmio_api_doc:
     documentation:
         servers: []
         info:
-            title: Elrnero Web API
+            title: Elrnero API
             description: Udemy base e-learning platform powered by Symfony PHP & React!
             version: 1.0.0
             x-build: #CommitHash

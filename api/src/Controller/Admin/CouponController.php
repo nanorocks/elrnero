@@ -21,7 +21,7 @@ class CouponController extends AbstractController
     #[Route('/admin/coupons', name: 'coupon_index')]
     public function index(Request $request, CouponRepository $couponRepository, PaginatorInterface $paginator): Response
     {
-        $queryBuilder = $couponRepository->createQueryBuilder('c');
+        $queryBuilder = $couponRepository->createQueryBuilder('c')->orderBy('c.id', 'ASC');
 
         // Handle filters
         if ($request->query->getAlnum('code')) {
@@ -100,7 +100,9 @@ class CouponController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('coupon_index');
+            return $this->redirectToRoute('coupon_index', [
+                'page' => $request->query->get('page')
+            ]);
         }
 
         $allCourses = $entityManager->getRepository(Course::class)->findAll();

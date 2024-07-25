@@ -51,10 +51,7 @@
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-terminal">
-							<polyline points="4 17 10 11 4 5"></polyline>
-							<line x1="12" y1="19" x2="20" y2="19"></line>
-						</svg>
+						<img src="{{ asset('img/logo.png') }}" alt="logo" width="35">
 						Elrnero Admin Panel
 
 						<span class="badge bg-danger">Tenant:
@@ -193,31 +190,47 @@
 									API doc
 								</a>
 							</li>
+					
 							<li class="nav-item">
-								<a class="nav-link {% if app.request.attributes.get('_route') == 'order_index' %}active{% endif %}" href="{{ path('order_index') }}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">
-										<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-										<path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-										<path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'object_storage_index' %}active{% endif %}" href="{{ path('object_storage_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 448 512"><path fill="#9b9e9d" d="M96 152l0 8-48 0 0-8C48 68.1 116.1 0 200 0l48 0c83.9 0 152 68.1 152 152l0 8-48 0 0-8c0-57.4-46.6-104-104-104l-48 0C142.6 48 96 94.6 96 152zM0 224c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-5.1 0L388.5 469c-2.6 24.4-23.2 43-47.7 43l-233.6 0c-24.6 0-45.2-18.5-47.7-43L37.1 256 32 256c-17.7 0-32-14.3-32-32z"/></svg>
+									Object Storage
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'email_marketing_index' %}active{% endif %}" href="{{ path('email_marketing_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
+										<line x1="22" y1="2" x2="11" y2="13"></line>
+										<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
 									</svg>
-									Database
+									Email marketing
 								</a>
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="https://mailchimp.com/">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#9b9d9e" d="M330.6 243.5a36.2 36.2 0 0 1 9.3 0c1.7-3.8 2-10.4 .5-17.6-2.2-10.7-5.3-17.1-11.5-16.1s-6.5 8.7-4.2 19.4c1.3 6 3.5 11.1 6 14.3zM277.1 252c4.5 2 7.2 3.3 8.3 2.1 1.9-1.9-3.5-9.4-12.1-13.1a31.4 31.4 0 0 0 -30.6 3.7c-3 2.2-5.8 5.2-5.4 7.1 .9 3.7 10-2.7 22.6-3.5 7-.4 12.8 1.8 17.3 3.7zm-9 5.1c-9.1 1.4-15 6.5-13.5 10.1 .9 .3 1.2 .8 5.2-.8a37 37 0 0 1 18.7-2c2.9 .3 4.3 .5 4.9-.5 1.5-2.2-5.7-8-15.4-6.9zm54.2 17.1c3.4-6.9-10.9-13.9-14.3-7s10.9 13.9 14.3 7zm15.7-20.5c-7.7-.1-8 15.8-.3 15.9s8-15.8 .3-16zm-218.8 78.9c-1.3 .3-6 1.5-8.5-2.4-5.2-8 11.1-20.4 3-35.8-9.1-17.5-27.8-13.5-35.1-5.5-8.7 9.6-8.7 23.5-5 24.1 4.3 .6 4.1-6.5 7.4-11.6a12.8 12.8 0 0 1 17.9-3.7c11.6 7.6 1.4 17.8 2.3 28.6 1.4 16.7 18.4 16.4 21.6 9a2.1 2.1 0 0 0 -.2-2.3c0 .9 .7-1.3-3.4-.4zm299.7-17.1c-3.4-11.7-2.6-9.2-6.8-20.5 2.5-3.7 15.3-24-3.1-43.3-10.4-10.9-33.9-16.5-41.1-18.5-1.5-11.4 4.7-58.7-21.5-83 20.8-21.6 33.8-45.3 33.7-65.7-.1-39.2-48.2-51-107.4-26.5l-12.6 5.3c-.1-.1-22.7-22.3-23.1-22.6C169.5-18-41.8 216.8 25.8 273.9l14.8 12.5a72.5 72.5 0 0 0 -4.1 33.5c3.4 33.4 36 60.4 67.5 60.4 57.7 133.1 267.9 133.3 322.3 3 1.7-4.5 9.1-24.6 9.1-42.4s-10.1-25.3-16.5-25.3zm-316 48.2c-22.8-.6-47.5-21.2-49.9-45.5-6.2-61.3 74.3-75.3 84-12.3 4.5 29.6-4.7 58.5-34.1 57.8zM84.3 249.6C69.1 252.5 55.8 261.1 47.6 273c-4.9-4.1-14-12-15.6-15-13-24.9 14.2-73 33.3-100.2C112.4 90.6 186.2 39.7 220.4 48.9c5.6 1.6 23.9 22.9 23.9 22.9s-34.2 18.9-65.8 45.4c-42.7 32.9-74.9 80.6-94.2 132.4zM323.2 350.7s-35.7 5.3-69.5-7.1c6.2-20.2 27 6.1 96.4-13.8 15.3-4.4 35.4-13 51-25.4a102.9 102.9 0 0 1 7.1 24.3c3.7-.7 14.3-.5 11.4 18.1-3.3 19.9-11.7 36-25.9 50.8A106.9 106.9 0 0 1 362.6 421a132.5 132.5 0 0 1 -20.3 8.6c-53.5 17.5-108.3-1.7-126-43a66.3 66.3 0 0 1 -3.6-9.7c-7.5-27.2-1.1-59.8 18.8-80.4 1.2-1.3 2.5-2.9 2.5-4.8a8.5 8.5 0 0 0 -1.9-4.5c-7-10.1-31.2-27.4-26.3-60.8 3.5-24 24.5-40.9 44.1-39.9l5 .3c8.5 .5 15.9 1.6 22.9 1.9 11.7 .5 22.2-1.2 34.6-11.6 4.2-3.5 7.6-6.5 13.3-7.5a17.5 17.5 0 0 1 13.6 2.2c10 6.6 11.4 22.7 11.9 34.5 .3 6.7 1.1 23 1.4 27.6 .6 10.7 3.4 12.2 9.1 14 3.2 1.1 6.2 1.8 10.5 3.1 13.2 3.7 21 7.5 26 12.3a16.4 16.4 0 0 1 4.7 9.3c1.6 11.4-8.8 25.4-36.3 38.2-46.7 21.7-93.7 14.5-100.5 13.7-20.2-2.7-31.6 23.3-19.6 41.2 22.6 33.4 122.4 20 151.4-21.4 .7-1 .1-1.6-.7-1-41.8 28.6-97.1 38.2-128.5 26-4.8-1.9-14.7-6.4-15.9-16.7 43.6 13.5 71 .7 71 .7s2-2.8-.6-2.5zm-68.5-5.7zm-83.4-187.5c16.7-19.4 37.4-36.2 55.8-45.6a.7 .7 0 0 1 1 1c-1.5 2.7-4.3 8.3-5.2 12.7a.8 .8 0 0 0 1.2 .8c11.5-7.8 31.5-16.2 49-17.3a.8 .8 0 0 1 .5 1.4 41.9 41.9 0 0 0 -7.7 7.7 .8 .8 0 0 0 .6 1.2c12.3 .1 29.7 4.4 41 10.7 .8 .4 .2 1.9-.6 1.7-69.6-15.9-123.1 18.5-134.5 26.8a.8 .8 0 0 1 -1-1.1z"/></svg>
-									Mailchimp
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'mail_service_index' %}active{% endif %}" href="{{ path('mail_service_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#9b9d9e" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+									Mail service
 								</a>
 							</li>
 
 							<li class="nav-item">
-							<a class="nav-link" href="https://www.mailersend.com/">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#9b9d9e" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
-								Mailersend
-							</a>
-						</li>
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'payment_gateway_index' %}active{% endif %}" href="{{ path('payment_gateway_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card">
+										<rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+										<line x1="1" y1="10" x2="23" y2="10"></line>
+									</svg>
+									Payment Gateway
+								</a>
+							</li>
 
+							<li class="nav-item">
+								<a class="nav-link {% if app.request.attributes.get('_route') == 'ai_system_index' %}active{% endif %}" href="{{ path('ai_system_index') }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 640 512"><path fill="#9b9d9a" d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"/></svg>
+									AI System
+								</a>
+							</li>
 
 						</ul>
 

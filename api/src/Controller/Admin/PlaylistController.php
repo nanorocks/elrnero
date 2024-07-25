@@ -22,7 +22,7 @@ class PlaylistController extends AbstractController
     #[Route('/admin/playlist', name: 'playlist_index')]
     public function index(PlaylistRepository $playlistRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $queryBuilder = $playlistRepository->findAllWithUsersQuery();
+        $queryBuilder = $playlistRepository->findAllWithUsersQuery()->orderBy('c.id', 'ASC');
 
         // Handle filters
         if ($request->query->getAlnum('name')) {
@@ -98,7 +98,9 @@ class PlaylistController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('playlist_index');
+            return $this->redirectToRoute('playlist_index', [
+                'page' => $request->query->get('page')
+            ]);
         }
 
         return $this->render('admin/playlist/edit.html.twig', [
