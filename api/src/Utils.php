@@ -22,4 +22,22 @@ class Utils
 
         return $couponCode;
     }
+
+
+    public static function extractPrimaryDomain(string $host): string
+    {
+        $parts = explode('.', $host);
+        $count = count($parts);
+
+        if($parts[1] === 'localhost') {
+            return $parts[1];
+        }
+       
+        // Assuming primary domain consists of the last two parts (e.g., example.com)
+        if ($count >= 2) {
+            return $parts[$count - 2] . '.' . $parts[$count - 1];
+        }
+
+        return $host;
+    }
 }

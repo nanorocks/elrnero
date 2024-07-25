@@ -1,20 +1,70 @@
+{# templates/dashboard/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SettingsController!{% endblock %}
+{% block title %}Settings
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="d-flex justify-content-between mt-2 pt-2">
+		<div class="d-flex align-items-center row">
+			<div>
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); font-wiight:" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('dashboard_index') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Settings</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="h1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+					<circle cx="12" cy="12" r="3"></circle>
+					<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+				</svg>
+				Settings
+			</div>
+		</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/api/src/Controller/Admin/SettingsController.php</code></li>
-        <li>Your template at <code>/var/www/html/api/templates/admin/settings/index.html.twig</code></li>
-    </ul>
-</div>
+	</div>
+	<p class="text-secondary">Here we represent the tenants for the Elrnero - Headless Admin Panel. Here we can see the availabe tenants where we can login and manage the data.</p>
+	<div class="card mt-1 shadow border-0 mb-4">
+		<div class="card-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr class="text-center">
+									<th>ID</th>
+									<th>Tenant</th>
+									<th>Subdomain</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for key, tenant in tenants %}
+									<tr class="text-center">
+										<td>{{ loop.index }}</td>
+										<td>{{ tenant }}</td>
+										<td>{{ tenant ~ '.' ~ domain }}</td>
+										<td class="pt-3" style="font-size: 10px;">
+											<a class="nav-link text-primary d-inline-block" href="http://{{ tenant ~ '.' ~ domain }}" target="_blank">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
+													<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+													<polyline points="10 17 15 12 10 7"></polyline>
+													<line x1="15" y1="12" x2="3" y2="12"></line>
+												</svg>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

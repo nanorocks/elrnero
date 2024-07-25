@@ -27,16 +27,16 @@ class MailerController extends AbstractController
 
         $personalization = [
             new Personalization('andrejnankov@gmail.com', [
-                    'product' => 'ID1111',
-                    'shipping' => 'n/a',
-                    'order_number' => '132313213',
-                    'support_email' => ''
+                'product' => 'ID1111',
+                'shipping' => 'n/a',
+                'order_number' => '132313213',
+                'support_email' => ''
             ])
         ];
 
         $emailParams = (new EmailParams())
             ->setFrom('MS_z7uctV@trial-351ndgw8v8rgzqx8.mlsender.net')
-            ->setFromName('Elrnero App')
+            ->setFromName('Elrnero - Headless Admin Panel')
             ->setRecipients($recipients)
             ->setSubject('Subject')
             ->setTemplateId('7dnvo4d0me9g5r86')
@@ -66,7 +66,7 @@ class MailerController extends AbstractController
 
         $emailParams = (new EmailParams())
             ->setFrom('MS_z7uctV@trial-351ndgw8v8rgzqx8.mlsender.net')
-            ->setFromName('Elrnero App')
+            ->setFromName('Elrnero - Headless Admin Panel')
             ->setRecipients($recipients)
             ->setSubject('Subject')
             ->setTemplateId('351ndgwnrq5gzqx8')

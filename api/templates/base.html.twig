@@ -50,13 +50,21 @@
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="#">
-						<img src="{{ asset('img/logo.png') }}" alt="logo" width="35">
-						Elrnero - Headless Admin Panel
+					<div class="d-flex">
+						<a class="navbar-brand" href="{{ path('dashboard_index') }}">
+							<img src="{{ asset('img/logo.png') }}" alt="logo" width="35">
 
-						<span class="badge bg-danger">Tenant:
-							{{ database_schema }}</span>
-					</a>
+							<div class="pt-1 d-inline-block">
+								Elrnero - Headless Admin Panel
+							</div>
+						</a>
+						<a class="navbar-brand" href="{{ path('settings_index') }}" style="margin-top: 0.2rem;">
+							<span class="badge bg-danger">Tenant:
+								{{ database_schema }}</span>
+						</a>
+					</div>
+
+
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -100,7 +108,7 @@
 				<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block navbar-dark bg-dark sidebar">
 					<div class="position-sticky">
 						<ul class="navbar-nav flex-column pt-5 mt-3">
-							<li class="nav-item">
+							<li class="nav-item mt-1">
 								<a class="nav-link {% if app.request.attributes.get('_route') == 'dashboard_index' %}active{% endif %}" href="{{ path('dashboard_index') }}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
 										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>

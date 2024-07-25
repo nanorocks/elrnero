@@ -10,7 +10,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
 
 final class MultiDbConnectionWrapper extends Connection
-{
+{   
     public function __construct(
         array $params,
         Driver $driver,
