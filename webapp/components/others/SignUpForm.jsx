@@ -13,11 +13,11 @@ export default function SignUpForm() {
         <div className="row justify-center items-center">
           <div className="col-xl-8 col-lg-9">
             <div className="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
-              <h3 className="text-30 lh-13">Sign Up</h3>
+              <h3 className="text-30 lh-13">Register</h3>
               <p className="mt-10">
                 Already have an account?
                 <Link href="/login" className="text-purple-1">
-                  Log in
+                  Login
                 </Link>
               </p>
 
@@ -60,23 +60,6 @@ export default function SignUpForm() {
                   </button>
                 </div>
               </form>
-
-              <div className="lh-12 text-dark-1 fw-500 text-center mt-20">
-                Or sign in using
-              </div>
-
-              <div className="d-flex x-gap-20 items-center justify-between pt-20">
-                <div>
-                  <button className="button -sm px-24 py-20 -outline-blue-3 text-blue-3 text-14">
-                    Log In via Facebook
-                  </button>
-                </div>
-                <div>
-                  <button className="button -sm px-24 py-20 -outline-red-3 text-red-3 text-14">
-                    Log In via Google+
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -15,37 +15,37 @@ import Header from '@/components/layout/headers/Header'
 import React from 'react'
 
 export const metadata = {
-  title: 'Instractors-become || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Instractors-become || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 export default function page() {
   return (
-    <div  className="main-content  ">
-      <Preloader/>
-        <Header/>
-        <div  className="content-wrapper  js-content-wrapper overflow-hidden">
-            <PageLinks/>
-            <PageHeading/>
-            <section  className=" layout-pb-lg">
-        <div  className="container">
-            <Tabs/>
-            <LearningCommon/>
+    <div className="main-content  ">
+      <Preloader />
+      <Header />
+      <div className="content-wrapper  js-content-wrapper overflow-hidden">
+        <PageLinks />
+        <PageHeading />
+        <section className=" layout-pb-lg">
+          <div className="container">
+            <Tabs />
+            <LearningCommon />
 
-            </div>
-            </section>
+          </div>
+        </section>
 
-            <JoinToday/>
+        <JoinToday />
 
-            <Instructors/>
-
-
-            <FooterOne/>
+        <Instructors />
 
 
-        </div>
+        <FooterOne />
+
+
+      </div>
     </div>
   )
 }

@@ -19,26 +19,26 @@ import SignUpForm from '@/components/others/SignUpForm'
 import Terms from '@/components/terms/Terms'
 import React from 'react'
 export const metadata = {
-  title: 'Sign up || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Register || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 export default function page() {
   return (
     <div className="main-content  ">
-      <Preloader/>
+      <Preloader />
 
-        <HeaderAuth/>
-        <div className="content-wrapper js-content-wrapper overflow-hidden">
-            <section  className="form-page js-mouse-move-container">
-                <AuthImageMove/>
-                <SignUpForm/>
-            </section>
-           
-            
-            
-        </div>
+      <HeaderAuth />
+      <div className="content-wrapper js-content-wrapper overflow-hidden">
+        <section className="form-page js-mouse-move-container">
+          <AuthImageMove />
+          <SignUpForm />
+        </section>
+
+
+
+      </div>
 
     </div>
   )

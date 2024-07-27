@@ -28,9 +28,8 @@ export default function HeaderEight() {
   return (
     <header
       data-add-bg="bg-white"
-      className={`header -type-5 js-header ${
-        scrollPosition > 50 ? "bg-white" : ""
-      }`}
+      className={`header -type-5 js-header ${scrollPosition > 50 ? "bg-white" : ""
+        }`}
     >
       <div className="d-flex items-center bg-white py-10 border-bottom-light">
         <div className="header__container">
@@ -119,13 +118,13 @@ export default function HeaderEight() {
 
               <div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 lg:d-none">
                 <Link href="/login" className="button -underline text-dark-1">
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button px-25 h-50 -dark-1 text-white ml-20"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

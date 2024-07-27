@@ -26,9 +26,8 @@ export default function HeaderSeven() {
   }, []);
   return (
     <header
-      className={`header -type-4 js-header ${
-        scrollPosition > 40 ? "bg-white" : ""
-      }`}
+      className={`header -type-4 js-header ${scrollPosition > 40 ? "bg-white" : ""
+        }`}
     >
       <div className="header__container py-10">
         <div className="row justify-between items-center">
@@ -80,13 +79,13 @@ export default function HeaderSeven() {
 
               <div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 lg:d-none">
                 <Link href="/login" className="button -underline text-purple-1">
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button h-50 px-30 -purple-3 -rounded text-purple-1 ml-15"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

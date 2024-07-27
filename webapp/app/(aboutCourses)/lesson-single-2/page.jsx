@@ -13,36 +13,36 @@ import HeaderTen from '@/components/layout/headers/HeaderTen'
 import React from 'react'
 
 export const metadata = {
-  title: 'Lesson-single-1 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Lesson-single-1 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 
 export default function page() {
   return (
-    <div  className="main-content  " >
-      <Preloader/>
-        <HeaderTen/>
-        <div  className="content-wrapper  js-content-wrapper overflow-hidden">
-            
-            <section  className="layout-pt-lg layout-pb-lg lg:pt-40 lg:order-1">
-        <div  className="container">
-          <div  className="row justify-start marginCustom ">
-            <div  className="col-xxl-8 col-xl-7 col-lg-8">
-              <VideoTwo/>
+    <div className="main-content  " >
+      <Preloader />
+      <HeaderTen />
+      <div className="content-wrapper  js-content-wrapper overflow-hidden">
 
-              <Descriptions/>
-              <Reviews/>
+        <section className="layout-pt-lg layout-pb-lg lg:pt-40 lg:order-1">
+          <div className="container">
+            <div className="row justify-start marginCustom ">
+              <div className="col-xxl-8 col-xl-7 col-lg-8">
+                <VideoTwo />
+
+                <Descriptions />
+                <Reviews />
 
 
-                </div>
-                </div>
-                </div>
-                </section>
-                <LessonItems rightPosition={true} />
-        </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <LessonItems rightPosition={true} />
+      </div>
     </div>
   )
 }

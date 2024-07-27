@@ -37,9 +37,8 @@ export default function MobileMenu({ setActiveMobileMenu, activeMobileMenu }) {
   const pathname = usePathname();
   return (
     <div
-      className={`header-menu js-mobile-menu-toggle ${
-        activeMobileMenu ? "-is-el-visible" : ""
-      }`}
+      className={`header-menu js-mobile-menu-toggle ${activeMobileMenu ? "-is-el-visible" : ""
+        }`}
     >
       <div className="header-menu__content">
         <div className="mobile-bg js-mobile-bg"></div>
@@ -47,19 +46,17 @@ export default function MobileMenu({ setActiveMobileMenu, activeMobileMenu }) {
         <div className="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
           <Link
             href="/login"
-            className={`text-dark-1 ${
-              pathname == "/login" ? "activeMenu" : "inActiveMenu"
-            } `}
+            className={`text-dark-1 ${pathname == "/login" ? "activeMenu" : "inActiveMenu"
+              } `}
           >
-            Log in
+            Login
           </Link>
           <Link
             href="/signup"
-            className={`text-dark-1 ml-30 ${
-              pathname == "/signup" ? "activeMenu" : "inActiveMenu"
-            } `}
+            className={`text-dark-1 ml-30 ${pathname == "/signup" ? "activeMenu" : "inActiveMenu"
+              } `}
           >
-            Sign Up
+            Register
           </Link>
         </div>
 

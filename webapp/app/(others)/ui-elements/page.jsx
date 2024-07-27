@@ -29,42 +29,42 @@ import Tabs from '@/components/uiElements/Tabs'
 import Tooltips from '@/components/uiElements/Tooltips'
 import Typography from '@/components/uiElements/Typography'
 export const metadata = {
-  title: 'UI elements || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'UI elements || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 import React from 'react'
 
 export default function page() {
   return (
     <div className="main-content  ">
-      <Preloader/>
+      <Preloader />
 
-        <Header/>
-        <div className="content-wrapper js-content-wrapper overflow-hidden">
-            <PageLinks/>
-            <PageHeading/>
-            <section  className="layout-pb-lg">
-              <div  className="container">
-                <div  className="row y-gap-50">
-                  <Accordions/>
-                  <Tabs/>
-                  <Table/>
-                  <MessageBoxes/>
-                </div>
-                <Buttons/>
-                <Form/>
-                <div  className="row y-gap-30 justify-between mt-50">
-                  <Tooltips/>
-                  <ProgressBars/>
-                </div>
-                <Typography/>
-              </div>
-            </section>
-            
-            <FooterOne/>
-        </div>
+      <Header />
+      <div className="content-wrapper js-content-wrapper overflow-hidden">
+        <PageLinks />
+        <PageHeading />
+        <section className="layout-pb-lg">
+          <div className="container">
+            <div className="row y-gap-50">
+              <Accordions />
+              <Tabs />
+              <Table />
+              <MessageBoxes />
+            </div>
+            <Buttons />
+            <Form />
+            <div className="row y-gap-30 justify-between mt-50">
+              <Tooltips />
+              <ProgressBars />
+            </div>
+            <Typography />
+          </div>
+        </section>
+
+        <FooterOne />
+      </div>
 
     </div>
   )

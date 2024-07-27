@@ -39,7 +39,7 @@ export default function LoginForm() {
               <p className="mt-10">
                 Don't have an account yet?
                 <Link href="/signup" className="text-purple-1 ms-1">
-                  Sign up for free
+                  Register for free
                 </Link>
               </p>
 

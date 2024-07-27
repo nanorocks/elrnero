@@ -16,23 +16,23 @@ import React from 'react'
 
 
 export const metadata = {
-  title: 'Couese-single-4 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Couese-single-4 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 export default function page({ params }) {
   return (
-    <div  className="main-content  ">
-      <Preloader/>
-        <Header/>
-        <div  className="content-wrapper  js-content-wrapper">
-            <PageLinks/>
-            <CourseDetailsFour id={params.id} />
-            <CourseSlider/>
-            <FooterOne/>
-        </div>
+    <div className="main-content  ">
+      <Preloader />
+      <Header />
+      <div className="content-wrapper  js-content-wrapper">
+        <PageLinks />
+        <CourseDetailsFour id={params.id} />
+        <CourseSlider />
+        <FooterOne />
+      </div>
 
 
     </div>

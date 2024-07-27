@@ -20,32 +20,32 @@ import JoinTwo from '@/components/homes/join/JoinTwo'
 import FooterTwo from '@/components/layout/footers/FooterThree'
 import Preloader from '@/components/common/Preloader'
 export const metadata = {
-  title: 'Home-3 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Home-3 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 export default function page() {
   return (
     <main className="main-content overflow-hidden ">
-      <Preloader/>
-      <HeaderThree/>
+      <Preloader />
+      <HeaderThree />
       <div className="content-wrapper  js-content-wrapper overflow-hidden">
-        <HeroThree/>
-        <Features/>
-        <CategoriesThree/>
-        <CoursesSlider/>
-        <StepsOne/>
-        <Line/>
-        <Instructors/>
-        <Testimonials/>
-        <CoursesTwo/>
-        <Achievements/>
-        <SkillsOne/>
-        <Line/>
-        <BlogsTwo/>
-        <JoinTwo/>
-        <FooterTwo/>
+        <HeroThree />
+        <Features />
+        <CategoriesThree />
+        <CoursesSlider />
+        <StepsOne />
+        <Line />
+        <Instructors />
+        <Testimonials />
+        <CoursesTwo />
+        <Achievements />
+        <SkillsOne />
+        <Line />
+        <BlogsTwo />
+        <JoinTwo />
+        <FooterTwo />
 
       </div>
     </main>

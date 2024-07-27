@@ -21,10 +21,10 @@ import LearningSelection from '@/components/homes/LearningSelection'
 import FooterFour from '@/components/layout/footers/FooterFour'
 import Preloader from '@/components/common/Preloader'
 export const metadata = {
-  title: 'Home-4 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Home-4 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 
@@ -33,26 +33,26 @@ export const metadata = {
 export default function page() {
   return (
     <>
-    <div className='main-content'>
-    <Preloader/>
-        <HeaderFour/>
-    </div>
-     <div className="content-wrapper  js-content-wrapper overflow-hidden">
-        <HeroFour/>
-        <Brands/>
-        <CategoriesFour/>
-        <CoursesFour/>
-        <LearningPath/>
-        <FeaturedCourses/>
-        <LandJob/>
-        <TestimonialsFour/>
-        <AchievementsTwo/>
-        <InstractorFour/>
-        <EventsFour/>
-        <LearningSelection/>
-        <FooterFour/>
+      <div className='main-content'>
+        <Preloader />
+        <HeaderFour />
+      </div>
+      <div className="content-wrapper  js-content-wrapper overflow-hidden">
+        <HeroFour />
+        <Brands />
+        <CategoriesFour />
+        <CoursesFour />
+        <LearningPath />
+        <FeaturedCourses />
+        <LandJob />
+        <TestimonialsFour />
+        <AchievementsTwo />
+        <InstractorFour />
+        <EventsFour />
+        <LearningSelection />
+        <FooterFour />
 
-     </div>
-     </>
+      </div>
+    </>
   )
 }

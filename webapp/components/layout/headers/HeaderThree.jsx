@@ -80,13 +80,13 @@ export default function HeaderThree() {
                   href="/login"
                   className="button px-30 h-50 -outline-dark-1 text-dark-1"
                 >
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button px-30 h-50 -dark-1 text-white ml-10"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

@@ -15,30 +15,30 @@ import Brands from '@/components/common/Brands'
 import FooterTwo from '@/components/layout/footers/FooterTwo'
 import Preloader from '@/components/common/Preloader'
 export const metadata = {
-  title: 'Home-2 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Home-2 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 export default function page() {
 
   return (
     <>
-    <Preloader/>
-    <HeaderTwo/>
-    <div className="main-content overflow-hidden   ">
-        <HeroTwo/>
-        <CoursesThree/>
-        <FindLearningPath/>
-        <LearningSolutions/>
-        <EventsOne/>
-        <CategoriesTwo/>
-        <Students/>
-        <BecomeInstactor/>
-        <BecomeStudent/>
-        <Brands/>
-        <FooterTwo/>
+      <Preloader />
+      <HeaderTwo />
+      <div className="main-content overflow-hidden   ">
+        <HeroTwo />
+        <CoursesThree />
+        <FindLearningPath />
+        <LearningSolutions />
+        <EventsOne />
+        <CategoriesTwo />
+        <Students />
+        <BecomeInstactor />
+        <BecomeStudent />
+        <Brands />
+        <FooterTwo />
 
-    </div></>
+      </div></>
   )
 }

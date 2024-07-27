@@ -27,9 +27,8 @@ export default function HeaderTwo() {
   }, []);
   return (
     <header
-      className={`header -type-5 js-header ${
-        scrollPosition > 40 ? "bg-dark-1" : ""
-      } `}
+      className={`header -type-5 js-header ${scrollPosition > 40 ? "bg-dark-1" : ""
+        } `}
     >
       <div className="d-flex items-center bg-purple-1 py-10">
         <div className="container">
@@ -110,13 +109,13 @@ export default function HeaderTwo() {
 
               <div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 md:d-none">
                 <Link href="/login" className="button -underline text-white">
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

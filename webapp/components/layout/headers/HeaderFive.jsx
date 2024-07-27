@@ -85,13 +85,13 @@ export default function HeaderFive() {
 
               <div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 lg:d-none">
                 <Link href="/login" className="button -underline text-purple-1">
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button h-50 px-30 -purple-1 -rounded text-white ml-20"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

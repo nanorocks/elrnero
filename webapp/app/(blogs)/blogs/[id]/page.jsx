@@ -19,28 +19,28 @@ import BlogDetails from '@/components/blogs/BlogDetails'
 import Preloader from '@/components/common/Preloader'
 
 export const metadata = {
-  title: 'Blog-details || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Blog-details || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 
 export default function page({ params }) {
   return (
     <div className="main-content  ">
-      <Preloader/>
+      <Preloader />
 
-        <Header/>
-        <div className="content-wrapper js-content-wrapper overflow-hidden">
-            <PageLinks/>
+      <Header />
+      <div className="content-wrapper js-content-wrapper overflow-hidden">
+        <PageLinks />
 
-            <BlogDetails id={params.id} />
+        <BlogDetails id={params.id} />
 
-            <RelatedBlogs/>
-       
-            <FooterOne/>
-        </div>
+        <RelatedBlogs />
+
+        <FooterOne />
+      </div>
 
     </div>
   )

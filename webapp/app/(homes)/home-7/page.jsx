@@ -23,33 +23,33 @@ import React from 'react'
 import Preloader from '@/components/common/Preloader'
 
 export const metadata = {
-  title: 'Home-7 || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Home-7 || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 
 export default function page() {
   return (
     <div className='main-content'>
-      <Preloader/>
-        <HeaderSeven/>
-        <div className="content-wrapper  js-content-wrapper overflow-hidden">
-          
-            <HeroSeven/>
-            <CoursesSeven/>
-            <InstractorSeven/>
-            <FindCourse/>
-            <LearningPathSeven/>
-            <LearningJourney/>
-            <Testimonials backgroundComponent={'white'}/>
-            <EventsSeven />
-            <Pricing/>
-            <Brands/>
-            <Statictis/>
-            <CategoriesSeven/>
-            <FooterSeven/>
-        </div>
+      <Preloader />
+      <HeaderSeven />
+      <div className="content-wrapper  js-content-wrapper overflow-hidden">
+
+        <HeroSeven />
+        <CoursesSeven />
+        <InstractorSeven />
+        <FindCourse />
+        <LearningPathSeven />
+        <LearningJourney />
+        <Testimonials backgroundComponent={'white'} />
+        <EventsSeven />
+        <Pricing />
+        <Brands />
+        <Statictis />
+        <CategoriesSeven />
+        <FooterSeven />
+      </div>
     </div>
   )
 }

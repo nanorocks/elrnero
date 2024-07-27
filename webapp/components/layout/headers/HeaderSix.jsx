@@ -26,9 +26,8 @@ export default function HeaderSix() {
   }, []);
   return (
     <header
-      className={`header -type-4 js-header ${
-        scrollPosition > 40 ? "bg-white" : ""
-      } `}
+      className={`header -type-4 js-header ${scrollPosition > 40 ? "bg-white" : ""
+        } `}
     >
       <div className="header__container py-5 border-bottom-dark">
         <div className="row justify-between items-center">
@@ -75,13 +74,13 @@ export default function HeaderSix() {
 
               <div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 lg:d-none">
                 <Link href="/login" className="button -underline text-dark-1">
-                  Log in
+                  Login
                 </Link>
                 <Link
                   href="/signup"
                   className="button h-50 px-40 -purple-1 -rounded text-white ml-30 xl:ml-20"
                 >
-                  Sign up
+                  Register
                 </Link>
               </div>
             </div>

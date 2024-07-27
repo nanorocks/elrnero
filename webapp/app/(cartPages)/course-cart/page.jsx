@@ -5,7 +5,6 @@
 
 
 
-import BlogsOne from '@/components/blogs/BlogsOne'
 import PageLinks from '@/components/common/PageLinks'
 import Preloader from '@/components/common/Preloader'
 
@@ -16,24 +15,24 @@ import React from 'react'
 
 import CourseCart from '../../../components/cartsAndCheckout/CourseCart'
 export const metadata = {
-  title: 'Course-cart || Educrat - Professional LMS Online Education Course NextJS Template',
+  title: 'Course-cart || Elrnero - Udemy base e-learning platform powered by Symfony PHP & React',
   description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
-  
+    'Elevate your e-learning content with Elrnero, the most impressive e-learning platform in the market.',
+
 }
 export default function page() {
   return (
     <div className="main-content  ">
-      <Preloader/>
+      <Preloader />
 
-        <Header/>
-        <div className="content-wrapper js-content-wrapper overflow-hidden">
-            <PageLinks/>
+      <Header />
+      <div className="content-wrapper js-content-wrapper overflow-hidden">
+        <PageLinks />
 
-            <CourseCart/>
-            
-            <FooterOne/>
-        </div>
+        <CourseCart />
+
+        <FooterOne />
+      </div>
 
     </div>
   )
